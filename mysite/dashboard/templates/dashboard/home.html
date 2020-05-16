@@ -1,0 +1,5 @@
+{% load static %}
+<h1>HOME</h1>
+<a href="{% url 'dashboard' %}">Go to dashboard</a>
+<a href="/login/vk-oauth2"><img src="{% static 'dashboard/vk.png' %}" width=50px data-toggle="tooltip" title="Login via VKontakte"></a>
+{{ user.username }}

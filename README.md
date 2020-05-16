@@ -1,2 +1,1 @@
-WKR
-Max
+Project for diplom

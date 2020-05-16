@@ -1,0 +1,100 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+      <meta charset="UTF-8">
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'dashboard/style.css' %}">
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard</title>
+</head>
+<body>
+
+  <div class="wrapper">
+      <!-- Sidebar  -->
+      <nav id="sidebar">
+          <div class="sidebar-header">
+              <h3>HLEBALERT</h3>
+              <strong>HA</strong>
+          </div>
+
+          <ul class="list-unstyled components">
+              <li {% if request.path == '/dashboard/' %} class="active"{% endif %}>
+                <a href="{% url 'dashboard' %}">
+                    <i class="fas fa-home"></i>
+                    ПАНЕЛЬ УПРАВЛЕНИЯ
+                </a>
+              </li>
+              <li {% if request.path == '/dashboard/messages/' %} class="active"{% endif %}>
+                <a href="{% url 'myMessages' %}">
+                    <i class="fas fa-copy"></i>
+                    МОИ СООБЩЕНИЯ
+                </a>
+              </li>
+              <li {% if request.path == '/dashboard/subscriptions/' %} class="active"{% endif %}>
+                <a href="{% url 'mySubs' %}">
+                    <i class="fas fa-copy"></i>
+                    МОИ ПОДПИСЧИКИ
+                </a>
+              </li>
+              <li {% if request.path == '/dashboard/payouts/' %} class="active"{% endif %}>
+                <a href="{% url 'myPayouts' %}">
+                    <i class="fas fa-briefcase"></i>
+                    МОИ ВЫПЛАТЫ
+                </a>
+              </li>
+              <li {% if request.path == '/dashboard/support/' %} class="active"{% endif %}>
+                  <a href="{% url 'support' %}">
+                      <i class="fas fa-question"></i>
+                      ПОМОЩь
+                  </a>
+              </li>
+              <li {% if request.path == '/dashboard/contacts/' %} class="active"{% endif %}>
+                  <a href="{% url 'contacts' %}">
+                      <i class="fas fa-paper-plane"></i>
+                      КОНТАКТЫ
+                  </a>
+              </li>
+          </ul>
+      </nav>
+
+      <!-- Page Content  -->
+      <div id="content">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+
+
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <div class="ml-auto">
+                   Здравствуйте, {{ user.first_name }} {{ user.last_name }}!
+                  </div>
+                </div>
+            </div>
+        </nav>
+
+          {% block content %}
+          {% endblock %}
+      </div>
+  </div>
+  <!-- jQuery CDN - Slim version (=without AJAX) -->
+   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+   <!-- Popper.JS -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+   <!-- Bootstrap JS -->
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+   <!-- jQuery Custom Scroller CDN -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+
+</body>
+</html>

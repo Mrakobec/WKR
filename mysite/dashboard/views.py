@@ -4,6 +4,9 @@ from django.http import HttpResponse
 def home(request):
     return render(request, 'dashboard/home.html')
 
+def dashboard(request):
+    return render(request, 'dashboard/dashboard.html')
+
 def myMessages(request):
     return render(request, 'dashboard/myMessages.html')
 

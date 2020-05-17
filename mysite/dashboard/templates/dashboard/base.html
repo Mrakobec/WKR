@@ -56,7 +56,7 @@
               <li {% if request.path == '/dashboard/support/' %} class="active"{% endif %}>
                   <a href="{% url 'support' %}">
                       <i class="fas fa-question"></i>
-                      ПОМОЩь
+                      ПОМОЩЬ
                   </a>
               </li>
               <li {% if request.path == '/dashboard/contacts/' %} class="active"{% endif %}>
@@ -84,6 +84,7 @@
                       {% csrf_token %}
                       <button type="submit">Logout</button>
                     </form>
+
                     {% else %}
 
                     Congrats, you hacked this site

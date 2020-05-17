@@ -77,7 +77,19 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                   <div class="ml-auto">
-                   Здравствуйте, {{ user.first_name }} {{ user.last_name }}!
+                    {% if user.is_authenticated %}
+
+                    Здравствуйте, {{ user.first_name }} {{ user.last_name }}!
+                    <form action="{% url 'logoutuser' %}" method="POST">
+                      {% csrf_token %}
+                      <button type="submit">Logout</button>
+                    </form>
+                    {% else %}
+
+                    Congrats, you hacked this site
+
+                    {% endif %}
+
                   </div>
                 </div>
             </div>

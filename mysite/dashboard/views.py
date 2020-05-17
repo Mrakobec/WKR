@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login, logout, authenticate
 
 def home(request):
     return render(request, 'dashboard/home.html')
@@ -28,3 +29,11 @@ def support(request):
 @login_required
 def contacts(request):
     return render(request, 'dashboard/contacts.html')
+
+@login_required
+def logoutuser(request):
+    if request.method == 'POST':
+        logout(request)
+        return redirect('home')
+    else:
+        return render(request, 'dashboard/logout.html')

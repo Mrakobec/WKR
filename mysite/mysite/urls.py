@@ -22,4 +22,5 @@ urlpatterns = [
     path('dashboard/', include('dashboard.urls')),
     path('', views.home, name="home"),
     path('', include('social_django.urls')),
+    path('logout/', views.logoutuser, name='logoutuser'),
 ]

@@ -1,0 +1,9 @@
+{% load static %}
+<h1>LOGOUT</h1>
+<a href="{% url 'dashboard' %}">Go to dashboard</a>
+<br>
+{{ user.username }}, Вы действительно хотите выйти из аккаунта?
+<form action="{% url 'logoutuser' %}" method="POST">
+  {% csrf_token %}
+  <button type="submit">Logout</button>
+</form>

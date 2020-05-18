@@ -3,7 +3,7 @@ from django.db import models
 #Таблица пользователей
 class Users1(models.Model):
     nickname = models.CharField(max_length=40)
-    IdVK = ?
+    IdVK = models.IntegerField()
 #Таблица поступивших пожертвований
 class Payments(models.Model):
     IdUser = models.ManyToManyField("Users1")
@@ -15,21 +15,24 @@ class Payments(models.Model):
 
 #Таблица транзакций
 class Transaction:
-    sum = models.IntegerField()
     currency = (
-        ('RUB')
+        ('RUB', 'РУБЛИ'),
+        ('EUR', 'EURO')
     )
-    IdPayments = ?
     status = (
-        ('успешно'),
-        ('не успешно')
+        ('УСП', 'Успешно'),
+        ('НЕУСП','Неуспешно')
     )
+    sum = models.IntegerField()
+    currency = models.CharField(max_length=20, choices=currency)
+    IdPayments = models.IntegerField()
+    status = models.CharField(max_length=20, choices=status)
 
 #Таблица вывода
 class Output(models.Model):
     IdTrunksaction = models.ManyToManyField("Transactions")
     recipient = models.CharField()
-    Sum_out =
+    Sum_out = models.IntegerField()
     system_out = (
         ('Банковский счёт'),
         ('VK Pay')

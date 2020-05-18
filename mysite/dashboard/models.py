@@ -30,18 +30,21 @@ class Transaction:
 
 #Таблица вывода
 class Output(models.Model):
-    IdTrunksaction = models.ManyToManyField("Transactions")
-    recipient = models.CharField()
-    Sum_out = models.IntegerField()
-    system_out = (
-        ('Банковский счёт'),
-        ('VK Pay')
-    )
-    date_payment = models.DateField()
     status = (
         ('успешно'),
         ('не успешно')
     )
+    system_out = (
+        ('Банковский счёт'),
+        ('VK Pay')
+    )
+    IdTrunksaction = models.ManyToManyField("Transactions")
+    recipient = models.CharField()
+    Sum_out = models.IntegerField()
+    system_out = models.CharField(max_length=50, choices=system_out)
+    date_payment = models.DateField()
+    status = models.CharField (max_length=20, choices=status)
+
 #Таблица баланся?
 class Balance(models.Model):
     IdUser = models.ManyToManyField("Users1")

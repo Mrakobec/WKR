@@ -9,7 +9,9 @@ class Payments(models.Model):
     IdUser = models.ManyToManyField("Users1")
     name = models.CharField(max_length=40)
     sum_in = models.ForeignKey
-    text = models.TextField
+    comission = models.FloatField()
+    #our_comission = sum_in*0.01
+    text = models.TextField()
     date_payment = models.DateField()
     IdTrunksaction = models.ManyToManyField("Transactions")
 

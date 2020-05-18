@@ -27,7 +27,9 @@ class Human(models.Model):
     )
     name = models.CharField(max_length=50, verbose_name="Имя")
     surname = models.CharField(max_length=50, verbose_name="Фамилия")
-    birth = models.DateField(auto_now_add=False, auto_now=Falst)
+    birth = models.DateField(auto_now_add=False, auto_now=False)
     company = models.CharField(max_length=150, choices=CHOICE_COMPANY)
-    position
+    position = models.CharField(max_length=15, choices=POSITION_COISES)
+    language = models.CharField(max_length=10, choices=LANGUAGE_CHOISES, default=PYTHON)
+    salary = models.IntegerField()
 # Create your models here.

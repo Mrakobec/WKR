@@ -2,4 +2,42 @@
 
 {% block content %}
 Payouts
+<div class="container">
+    <form method="POST" action="create/">
+        {% csrf_token %}
+        <p>
+            <label>Введите имя</label><br>
+            <input type="text" name="name" />
+        </p>
+        <p>
+            <label>Введите возраст</label><br>
+            <input type="number" name="age" />
+        </p>
+        <p>
+            <label>Выберете тип валюты</label><br>
+            <input type="number" name="age" />
+        </p>
+        <input type="submit" value="Сохранить" >
+    </form>
+    {% if people.count > 0 %}
+    <h2>Список пользователей</h2>
+    <table>
+        <tr><th>Id</th><th>Имя</th><th>Возраст</th></tr>
+        {% for person in people %}
+        <tr>
+            <td>{{ InPut.id }}</td>
+            <td>{{ InPut.users }}</td>
+            <td>{{ InPut.amount }}</td>
+            <td>{{ InPut.currency }}</td>
+            <td>{{ InPut.comiss1 }}</td>
+            <td>{{ InPut.comiss2 }}</td>
+            <td>{{ InPut.amount_end }}</td>
+            <td>{{ InPut.text }}</td>
+            <td>{{ InPut.status }}</td>
+            <td><a href="edit/{{person.id}}">Изменить</a> | <a href="delete/{{person.id}}">Удалить</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</div>
 {% endblock %}

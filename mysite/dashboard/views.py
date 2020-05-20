@@ -2,6 +2,12 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
+from django.views.generic.list import ListView
+
+#from mysite.dashboard.models import InPut
+
+
+
 
 def home(request):
     return render(request, 'dashboard/home.html')
@@ -12,6 +18,10 @@ def dashboard(request):
 
 @login_required
 def myMessages(request):
+    # class InPutView(ListView):
+    #     model = InPut
+    #     template_name = 'dashboard/myMessages.html'
+    #     context_object_name = 'messages'
     return render(request, 'dashboard/myMessages.html')
 
 @login_required

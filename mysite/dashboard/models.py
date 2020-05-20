@@ -69,10 +69,12 @@ class Currency(models.Model):
 class Status(models.Model):
     SUCCESS = 'УСП'
     UNSUCCESS = 'НЕУСП'
-    name = (
+    types = (
         (SUCCESS, 'успешно'),
         (UNSUCCESS, 'неуспешно')
     )
+    name = models.CharField(max_length=20, choices=types, default=SUCCESS)
+
 
 class InPut(models.Model):
     user = models.ForeignKey(Userss, on_delete=models.CASCADE)
@@ -83,7 +85,7 @@ class InPut(models.Model):
     comiss1 = models.DecimalField(decimal_places=2, max_digits=10)
     comiss2 = models.DecimalField(decimal_places=2, max_digits=10)
     amount_end = models.DecimalField(decimal_places=2, max_digits=10)
-    text = models.CharField(max_length=200)
+    text = models.CharField(max_length=250)
     status = models.ForeignKey(Status, on_delete=models.PROTECT)
 
 class OutPut(models.Model):

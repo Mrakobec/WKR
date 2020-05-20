@@ -2,4 +2,15 @@
 
 {% block content %}
 My messages
+{% for massages in InPut %}
+    <tr class='success'>
+        <td>{{ InPut.id }}</td>
+        <td>{{ InPut.name }}</td>
+        <td>{{ InPut.amount }}</td>
+        <td>{{ InPut.currency }}</td>
+        <td>{{ InPut.text }}</td>
+        <td>{{ InPut.date }}</td>
+        <td>{{ InPut.status }}</td>
+    </tr>
+{% endfor %}
 {% endblock %}

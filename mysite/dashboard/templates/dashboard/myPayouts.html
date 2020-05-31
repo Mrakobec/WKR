@@ -63,54 +63,89 @@
 
 <br>
 <br>
-<table class="table">
-    <tr>
-        <td>№</td>
-        <td>Получатель</td>
-        <td>Сумма, RUB</td>
-        <td>Система</td>
-        <td>Дата и время</td>
-        <td>Статус</td>
-    </tr>
-    <tr>
-        <td>5</td>
-        <td>***</td>
-        <td>20</td>
-        <td>банковская карта - россия</td>
-        <td>20.05.2020 15:05:36</td>
-        <td>успешно</td>
-    </tr>
-    <tr>
-        <td>4</td>
-        <td>***</td>
-        <td>100</td>
-        <td>банковская карта - россия</td>
-        <td>20.05.2020 14:59:33</td>
-        <td>успешно</td>
-    </tr>
-    <tr>
-        <td>3</td>
-        <td>11810761</td>
-        <td>250</td>
-        <td>vk pay</td>
-        <td>20.05.2020 14:41:07</td>
-        <td>успешно</td>
-    </tr>
-    <tr>
-        <td>2</td>
-        <td>11810761</td>
-        <td>500</td>
-        <td>vk pay</td>
-        <td>20.05.2020 14:30:52</td>
-        <td>ошибка</td>
-    </tr>
-    <tr>
-        <td>1</td>
-        <td>11810761</td>
-        <td>3000</td>
-        <td>vk pay</td>
-        <td>20.05.2020 14:22:21</td>
-        <td>ошибка</td>
-    </tr>
-</table>
+<!--<table class="table">-->
+<!--    <tr>-->
+<!--        <td>№</td>-->
+<!--        <td>Получатель</td>-->
+<!--        <td>Сумма, RUB</td>-->
+<!--        <td>Система</td>-->
+<!--        <td>Дата и время</td>-->
+<!--        <td>Статус</td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td>5</td>-->
+<!--        <td>***</td>-->
+<!--        <td>20</td>-->
+<!--        <td>банковская карта - россия</td>-->
+<!--        <td>20.05.2020 15:05:36</td>-->
+<!--        <td>успешно</td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td>4</td>-->
+<!--        <td>***</td>-->
+<!--        <td>100</td>-->
+<!--        <td>банковская карта - россия</td>-->
+<!--        <td>20.05.2020 14:59:33</td>-->
+<!--        <td>успешно</td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td>3</td>-->
+<!--        <td>11810761</td>-->
+<!--        <td>250</td>-->
+<!--        <td>vk pay</td>-->
+<!--        <td>20.05.2020 14:41:07</td>-->
+<!--        <td>успешно</td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td>2</td>-->
+<!--        <td>11810761</td>-->
+<!--        <td>500</td>-->
+<!--        <td>vk pay</td>-->
+<!--        <td>20.05.2020 14:30:52</td>-->
+<!--        <td>ошибка</td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td>1</td>-->
+<!--        <td>11810761</td>-->
+<!--        <td>3000</td>-->
+<!--        <td>vk pay</td>-->
+<!--        <td>20.05.2020 14:22:21</td>-->
+<!--        <td>ошибка</td>-->
+<!--    </tr>-->
+<!--</table>-->
+<h2> Вывод средств:</h2>
+<form action="." method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+<!--    <input type="number" name="amount" placeholder="Your amount:">-->
+    <input type="submit" value="Save"/>
+</form>
+
+
+   <h2>Выведенные средства:</h2>
+    {% if out.count > 0 %}
+    <table class="table">
+        <tr><th>Id</th><th>Запросивший</th><th>Получатель</th><th>Дата и время</th><th>Сумма</th><th>Тип валюты</th><th>Способ получения</th><th>Комиссия</th><th>Конечная сумма</th><th>Статус</th></tr>
+        {% for trunk in out %}
+        <tr>
+            <td>{{ trunk.id }}</td>
+            <td>{{ trunk.user }}</td>
+            <td>{{ trunk.recipient }}</td>
+            <td>{{ trunk.date }}</td>
+            <td>{{ trunk.amount }}</td>
+            <td>{{ trunk.currency }}</td>
+            <td>{{ trunk.payment_method }}</td>
+            <td>{{ trunk.comiss }}</td>
+            <td>{{ trunk.amount_end }}</td>
+            <td>{{ trunk.status }}</td>
+
+
+            <td><a href="edit/{{trunk.id}}">Изменить</a> | <a href="delete/{{trunk.id}}">Удалить</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+ {% endif %}
+{% for massages in InPut %}
+
+{% endfor %}
 {% endblock %}

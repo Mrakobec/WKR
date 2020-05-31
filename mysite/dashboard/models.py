@@ -48,9 +48,9 @@ class InPut(models.Model):
         return (self.name)
 
 class OutPut(models.Model):
-    user = models.ForeignKey(Userss, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     recipient = models.CharField(max_length=50)
-    date = models.DateTimeField()
+    date = models.DateTimeField(auto_now_add=True)
     amount = models.DecimalField(decimal_places=2, max_digits=10)
     currency = models.ForeignKey(Currency, on_delete=models.PROTECT)
     payment_method = models.CharField(max_length=50)
@@ -58,10 +58,10 @@ class OutPut(models.Model):
     amount_end = models.DecimalField(decimal_places=2, max_digits=10)
     status = models.ForeignKey(Status, on_delete=models.PROTECT)
     def __str__(self):
-        return (self.user)
+        return (self.recipient)
 
 class Balance(models.Model):
-    user = models.OneToOneField(Userss, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     input = models.DecimalField(decimal_places=2, max_digits=10)
     output = models.DecimalField(decimal_places=2, max_digits=10)
     balance = models.DecimalField(decimal_places=2, max_digits=10)

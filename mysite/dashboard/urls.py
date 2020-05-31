@@ -15,6 +15,9 @@ urlpatterns = [
     path('users/delete/<int:id>/', views.usersdelete),
     path('input/', views.input),
     # path('input/create/', views.inputcreate),
-    path('inputcreate/', views.InPut_create_view)
+    path('inputcreate/', views.InPut_create_view),
+    path('balancecreate/', views.addbalance),
+    path('balance/', views.viewbalance),
+    path('outputcreate/', views.OutPutCreate)
 
 ]

@@ -48,7 +48,7 @@
     <h2>Мои сообщения:</h2>
     {% if pay.count > 0 %}
     <table class="table">
-        <tr><th>Id</th><th>Получатель</th><th>Дата и время</th><th>Отправитель</th><th>Сумма</th><th>Тип валюты</th><th>Комиссия1</th><th>Комиссия2</th><th>Конечная сумма</th><th>Текст</th><th>Статус</th></tr>
+        <tr><th>Id</th><th>Получатель</th><th>Дата и время</th><th>Отправитель</th><th>Сумма</th><th>Тип валюты</th><th>Комиссия1</th><th>Комиссия2</th><th>Комиссия конечная</th><th>Конечная сумма</th><th>Текст</th><th>Статус</th></tr>
         {% for trunk in pay %}
         <tr>
             <td>{{ trunk.id }}</td>
@@ -59,6 +59,7 @@
             <td>{{ trunk.currency }}</td>
             <td>{{ trunk.comiss1 }}</td>
             <td>{{ trunk.comiss2 }}</td>
+            <td>{{ trunk.comiss_end }}</td>
             <td>{{ trunk.amount_end }}</td>
             <td>{{ trunk.text }}</td>
             <td>{{ trunk.status }}</td>

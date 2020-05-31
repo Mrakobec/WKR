@@ -14,7 +14,7 @@ urlpatterns = [
     path('users/edit/<int:id>/', views.usersedit),
     path('users/delete/<int:id>/', views.usersdelete),
     path('input/', views.input),
-    path('input/create/', views.inputcreate),
+    # path('input/create/', views.inputcreate),
     path('inputcreate/', views.InPut_create_view)
 
 ]

@@ -19,6 +19,8 @@ def dashboard(request):
 @login_required
 def myMessages(request):
     pay = InPut.objects.filter(user=request.user)
+    # comiss_end = pay.comiss1
+    # pay.comiss_end = comiss_end
     return render(request, 'dashboard/myMessages.html', {"pay":pay})
 
 @login_required
@@ -85,37 +87,39 @@ def input(request):
     pay = InPut.objects.all()
     return render(request, 'dashboard/input.html', {"pay": pay})
 
-def inputcreate(request):
-    # try:
-    #     tom = User.objects.get(id=id)
-
-    if request.method == "POST":
-        tom = InPut()
-        tom.user = request.POST.get("user")
-        tom.date = time.ctime
-        tom.name = request.POST.get("name")
-        tom.amount = request.POST.get("amount")
-        tom.currency = 1
-
-        amounted = float(tom.amount)
-        comiss1 = round((amounted * 0.05), 2)
-        comiss2 = round((amounted * 0.01), 2)
-        amount_end = amounted - comiss1 - comiss2
-        print(amounted)
-        print(comiss1)
-        print(comiss2)
-        print(amount_end)
-        tom.comiss1 = comiss1
-        tom.comiss2 = comiss2
-        tom.amount_end = amount_end
-
-        # tom.comiss1 = tom.amount*0.05
-        # tom.comiss2 = tom.amount*0.01
-        # tom.amount_end = tom.amount - tom.comiss1 - tom.comiss2
-        tom.text = request.POST.get("text")
-        tom.status = 1
-        tom.save()
-    return HttpResponseRedirect("/dashboard/input/")
+# def inputcreate(request):
+#     # try:
+#     #     tom = User.objects.get(id=id)
+#
+#     if request.method == "POST":
+#         tom = InPut()
+#         tom.user = request.POST.get("user")
+#         tom.date = time.ctime
+#         tom.name = request.POST.get("name")
+#         tom.amount = request.POST.get("amount")
+#         tom.currency = 1
+#
+#         amounted = float(tom.amount)
+#         comiss1 = round((amounted * 0.05), 2)
+#         comiss2 = round((amounted * 0.01), 2)
+#         comiss_end = comiss1 + comiss2
+#         amount_end = amounted - comiss_end
+#         print(amounted)
+#         print(comiss1)
+#         print(comiss2)
+#         print(amount_end)
+#         tom.comiss1 = comiss1
+#         tom.comiss2 = comiss2
+#         tom.comiss_end = comiss_end
+#         tom.amount_end = amount_end
+#
+#         # tom.comiss1 = tom.amount*0.05
+#         # tom.comiss2 = tom.amount*0.01
+#         # tom.amount_end = tom.amount - tom.comiss1 - tom.comiss2
+#         tom.text = request.POST.get("text")
+#         tom.status = 1
+#         tom.save()
+#     return HttpResponseRedirect("/dashboard/input/")
 
 def InPut_create_view(request):
     my_form = InputForm(request.POST or None)
@@ -127,14 +131,17 @@ def InPut_create_view(request):
                 amounted = float(my_new_amount)
                 comiss1 = round((amounted * 0.05), 2)
                 comiss2 = round((amounted * 0.01), 2)
-                amount_end = amounted - comiss1 - comiss2
+                comiss_end = comiss1 + comiss2
+                amount_end = amounted - comiss_end
                 print(my_new_amount)
                 print(comiss1)
                 print(comiss2)
+                print(comiss_end)
                 print(amount_end)
             instance = my_form.save(commit=False)
             instance.comiss1 = comiss1
             instance.comiss2 = comiss2
+            instance.comiss_end = comiss_end
             instance.amount_end = amount_end
             instance.save()
             my_form = InputForm()

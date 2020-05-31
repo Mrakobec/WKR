@@ -40,6 +40,7 @@ class InPut(models.Model):
     currency = models.ForeignKey(Currency, on_delete=models.PROTECT)
     comiss1 = models.DecimalField(decimal_places=2,  max_digits=10)
     comiss2 = models.DecimalField(decimal_places=2, max_digits=10)
+    comiss_end = models.DecimalField(decimal_places=2, max_digits=10)
     amount_end = models.DecimalField(decimal_places=2, max_digits=10)
     text = models.CharField(max_length=250)
     status = models.ForeignKey(Status, on_delete=models.PROTECT)
@@ -53,7 +54,7 @@ class OutPut(models.Model):
     amount = models.DecimalField(decimal_places=2, max_digits=10)
     currency = models.ForeignKey(Currency, on_delete=models.PROTECT)
     payment_method = models.CharField(max_length=50)
-    comiss3 = models.DecimalField(decimal_places=2, max_digits=10)
+    comiss = models.DecimalField(decimal_places=2, max_digits=10)
     amount_end = models.DecimalField(decimal_places=2, max_digits=10)
     status = models.ForeignKey(Status, on_delete=models.PROTECT)
     def __str__(self):

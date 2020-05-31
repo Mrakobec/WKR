@@ -1,92 +1,50 @@
 from django.db import models
-#
-# #Таблица пользователей
-# class Users1(models.Model):
-#     nickname = models.CharField(max_length=40)
-#     IdVK = models.IntegerField()
-# #Таблица поступивших пожертвований
-# class Payments(models.Model):
-#     IdUser = models.ManyToManyField("Users1")
-#     name = models.CharField(max_length=40)
-#     sum_in = models.ForeignKey
-#     comission = models.FloatField()
-#     #our_comission = sum_in*0.01
-#     text = models.TextField()
-#     date_payment = models.DateField()
-#     IdTrunksaction = models.ManyToManyField("Transactions")
-#
-# #Таблица транзакций
-# class Transaction:
-#     currency = (
-#         ('RUB', 'РУБЛИ'),
-#         ('EUR', 'EURO')
-#     )
-#     status = (
-#         ('УСП', 'Успешно'),
-#         ('НЕУСП','Неуспешно')
-#     )
-#     sum = models.IntegerField()
-#     currency = models.CharField(max_length=20, choices=currency)
-#     IdPayments = models.IntegerField()
-#     status = models.CharField(max_length=20, choices=status)
-#
-# #Таблица вывода
-# class Output(models.Model):
-#     status = (
-#         ('успешно'),
-#         ('не успешно')
-#     )
-#     system_out = (
-#         ('Банковский счёт'),
-#         ('VK Pay')
-#     )
-#     IdTrunksaction = models.ManyToManyField("Transactions")
-#     recipient = models.CharField()
-#     Sum_out = models.IntegerField()
-#     system_out = models.CharField(max_length=50, choices=system_out)
-#     date_payment = models.DateField()
-#     status = models.CharField (max_length=20, choices=status)
-#
-# #Таблица баланся?
-# class Balance(models.Model):
-#     IdUser = models.ManyToManyField("Users1")
-#     sum_in = models.ManyToManyField("Payments")
-#     sum_out = models.ManyToManyField("Output")
-#     comiss_bank = models.IntegerField()
-#     comiss_our = models.IntegerField()
-#     balance = models.IntegerField()
+from django.contrib.auth.models import User
 
 class Userss(models.Model):
     nickname = models.CharField(max_length=20)
+    socialauth = models.OneToOneField(User,  on_delete=models.CASCADE)
+    def __str__(self):
+        return (self.nickname)
 
 class Currency(models.Model):
     currency_type = (
-        ('RUB', 'РУБЛИ'),
-        ('EUR', 'EURO'),
+        ('1', 'РУБЛИ'),
+        ('2', 'EURO'),
     )
-    name = models.CharField(max_length=20, choices=currency_type, default='RUB')
+    name = models.CharField(max_length=20 # choices=currency_type, default='1'
+     )
+
+    def __str__(self):
+        return (self.name)
 
 class Status(models.Model):
-    SUCCESS = 'УСП'
-    UNSUCCESS = 'НЕУСП'
-    types = (
-        (SUCCESS, 'успешно'),
-        (UNSUCCESS, 'неуспешно')
-    )
-    name = models.CharField(max_length=20, choices=types, default=SUCCESS)
+    # SUCCESS = 'УСП'
+    # # UNSUCCESS = 'НЕУСП'
+    # currency_type = (
+    #     ('2', 'успешно'),
+    #     ('1', 'неуспешно'),
+    # )
+    name = models.CharField(max_length=20)
+
+    def __str__(self):
+        return (self.name)
+
 
 
 class InPut(models.Model):
-    user = models.ForeignKey(Userss, on_delete=models.CASCADE)
-    date = models.DateTimeField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=20)
     amount = models.DecimalField(decimal_places=2, max_digits=10)
     currency = models.ForeignKey(Currency, on_delete=models.PROTECT)
-    comiss1 = models.DecimalField(decimal_places=2, max_digits=10)
+    comiss1 = models.DecimalField(decimal_places=2,  max_digits=10)
     comiss2 = models.DecimalField(decimal_places=2, max_digits=10)
     amount_end = models.DecimalField(decimal_places=2, max_digits=10)
     text = models.CharField(max_length=250)
     status = models.ForeignKey(Status, on_delete=models.PROTECT)
+    def __str__(self):
+        return (self.name)
 
 class OutPut(models.Model):
     user = models.ForeignKey(Userss, on_delete=models.CASCADE)
@@ -98,6 +56,8 @@ class OutPut(models.Model):
     comiss3 = models.DecimalField(decimal_places=2, max_digits=10)
     amount_end = models.DecimalField(decimal_places=2, max_digits=10)
     status = models.ForeignKey(Status, on_delete=models.PROTECT)
+    def __str__(self):
+        return (self.user)
 
 class Balance(models.Model):
     user = models.OneToOneField(Userss, on_delete=models.CASCADE)
@@ -105,4 +65,5 @@ class Balance(models.Model):
     output = models.DecimalField(decimal_places=2, max_digits=10)
     balance = models.DecimalField(decimal_places=2, max_digits=10)
     currency = models.ForeignKey(Currency, on_delete=models.PROTECT)
-# # Create your models here.
+    def __str__(self):
+        return (self.user)

@@ -9,4 +9,12 @@ urlpatterns = [
     path('payouts/', views.myPayouts, name='myPayouts'),
     path('support/', views.support, name='support'),
     path('contacts/', views.contacts, name='contacts'),
+    path('users/', views.users),
+    path('users/create/', views.userscreate),
+    path('users/edit/<int:id>/', views.usersedit),
+    path('users/delete/<int:id>/', views.usersdelete),
+    path('input/', views.input),
+    path('input/create/', views.inputcreate),
+    path('inputcreate/', views.InPut_create_view)
+
 ]

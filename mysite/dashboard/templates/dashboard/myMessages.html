@@ -1,16 +1,74 @@
 {% extends "dashboard/base.html" %}
 
 {% block content %}
-My messages
+<!--<table class="table">-->
+<!--    <tr>-->
+<!--        <td>Имя пользователя</td>-->
+<!--        <td>Сумма, RUB</td>-->
+<!--        <td>Сообщение</td>-->
+<!--        <td>Дата и время</td>-->
+<!--        <td></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td>user_1</td>-->
+<!--        <td>100</td>-->
+<!--        <td>тестовое сообщение №1</td>-->
+<!--        <td>20.05.2020 14:01:07</td>-->
+<!--        <td></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td>user_2</td>-->
+<!--        <td>2000</td>-->
+<!--        <td>тестовое сообщение №2</td>-->
+<!--        <td>20.05.2020 14:03:55</td>-->
+<!--        <td></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td>user_3</td>-->
+<!--        <td>50</td>-->
+<!--        <td>тестовое сообщение №3</td>-->
+<!--        <td>20.05.2020 14:05:09</td>-->
+<!--        <td></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td>user_4</td>-->
+<!--        <td>22</td>-->
+<!--        <td>тестовое сообщение №4</td>-->
+<!--        <td>20.05.2020 14:10:22</td>-->
+<!--        <td></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td>user_5</td>-->
+<!--        <td>250</td>-->
+<!--        <td>тестовое сообщение №5</td>-->
+<!--        <td>20.05.2020 14:11:11</td>-->
+<!--        <td></td>-->
+<!--    </tr>-->
+<!--</table>-->
+    <h2>Мои сообщения:</h2>
+    {% if pay.count > 0 %}
+    <table class="table">
+        <tr><th>Id</th><th>Получатель</th><th>Дата и время</th><th>Отправитель</th><th>Сумма</th><th>Тип валюты</th><th>Комиссия1</th><th>Комиссия2</th><th>Конечная сумма</th><th>Текст</th><th>Статус</th></tr>
+        {% for trunk in pay %}
+        <tr>
+            <td>{{ trunk.id }}</td>
+            <td>{{ trunk.user }}</td>
+            <td>{{ trunk.date }}</td>
+            <td>{{ trunk.name }}</td>
+            <td>{{ trunk.amount }}</td>
+            <td>{{ trunk.currency }}</td>
+            <td>{{ trunk.comiss1 }}</td>
+            <td>{{ trunk.comiss2 }}</td>
+            <td>{{ trunk.amount_end }}</td>
+            <td>{{ trunk.text }}</td>
+            <td>{{ trunk.status }}</td>
+
+<!--            <td><a href="edit/{{trunk.id}}">Изменить</a> | <a href="delete/{{trunk.id}}">Удалить</a></td>-->
+        </tr>
+        {% endfor %}
+    </table>
+ {% endif %}
 {% for massages in InPut %}
-    <tr class='success'>
-        <td>{{ InPut.id }}</td>
-        <td>{{ InPut.name }}</td>
-        <td>{{ InPut.amount }}</td>
-        <td>{{ InPut.currency }}</td>
-        <td>{{ InPut.text }}</td>
-        <td>{{ InPut.date }}</td>
-        <td>{{ InPut.status }}</td>
-    </tr>
+
 {% endfor %}
 {% endblock %}

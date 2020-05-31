@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'dashboard',
     'social_django',
-    'test1',
 ]
 
 MIDDLEWARE = [
@@ -80,7 +79,7 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite5'),
     }
 }
 
@@ -133,7 +132,6 @@ AUTHENTICATION_BACKENDS = (
 
 SOCIAL_AUTH_VK_OAUTH2_KEY = '7469417'
 SOCIAL_AUTH_VK_OAUTH2_SECRET = 'iP7pmgZfz428D4DTdbCH'
-SOCIAL_AUTH_VK_OAUTH2_SCOPE = ['email']
 
 LOGIN_REDIRECT_URL = '/dashboard/'
 

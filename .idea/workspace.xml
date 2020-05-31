@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2b5449de-ba0c-46cf-a809-b6ace18cb55c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="dc7801e0-8340-40e0-89c1-c54d3d2bb9da" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ProjectId" id="1btfoxlFYOOeyEhldXFP0lggiq1" />
+  <component name="ProjectId" id="1cJjv1spZSpfPxufOEiLD3A2q9f" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -17,16 +15,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/todolist-master" />
-  </component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\WKR\mysite\test1\templates\test1" />
-      <recent name="C:\WKR\mysite\test1\templates" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\WKR\mysite\mainApp" />
-    </key>
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="ServiceViewManager">
     <option name="viewStates">
@@ -45,28 +34,26 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="2b5449de-ba0c-46cf-a809-b6ace18cb55c" name="Default Changelist" comment="" />
-      <created>1589456488225</created>
+      <changelist id="dc7801e0-8340-40e0-89c1-c54d3d2bb9da" name="Default Changelist" comment="" />
+      <created>1590253816573</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1589456488225</updated>
+      <updated>1590253816573</updated>
     </task>
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="792" y="552" key="FileChooserDialogImpl" timestamp="1589473613603">
+    <state x="731" y="324" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1590763218601">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="792" y="552" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1589473613603" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/mysite/mainApp/urls.py</url>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <state x="731" y="324" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1590763218601" />
+    <state x="740" y="276" key="FileChooserDialogImpl" timestamp="1590657611995">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="276" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1590657611995" />
+    <state x="1136" y="345" key="com.intellij.ide.util.TipDialog" timestamp="1590657576168">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1136" y="345" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590657576168" />
   </component>
 </project>

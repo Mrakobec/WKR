@@ -62,36 +62,40 @@ def myPayouts(request):
     if my_form.is_valid():
         if request.method == "POST":
             my_new_amount = request.POST.get('amount')
-            if my_new_amount != None:
-                comiss = float(my_new_amount)*0.2
-                new_amount = float(my_new_amount) - comiss
+            comiss = float(my_new_amount) * 0.2
+            new_amount = float(my_new_amount) - comiss
+            final_sum = float(my_new_amount) + comiss
+            if final_sum != None:
                 print(new_amount)
+                print(final_sum)
                 if new_amount >= 0:
-                    print(new_amount)
-                    n = random.randint(1, 9)
-                    status1 = Status.objects.get(pk=1)
-                    status2= Status.objects.get(pk=2)
-                    if n >= 5:
-                        status = status1
-                    else:
-                        status = status2
-                    user = request.user
-                    print (user)
-                    instance = my_form.save(commit=False)
-                    instance.user = user
-                    instance.comiss = comiss
-                    instance.status = status
-                    instance.amount_end = new_amount
-                    instance.currency = Currency.objects.get(pk=1)
+                    if final_sum <= b:
+                        print(new_amount)
+                        n = random.randint(1, 9)
+                        status1 = Status.objects.get(pk=1)
+                        status2= Status.objects.get(pk=2)
+                        if n >= 5:
+                            status = status1
+                        else:
+                            status = status2
+                        user = request.user
+                        print (user)
+                        instance = my_form.save(commit=False)
+                        instance.user = user
+                        instance.comiss = comiss
+                        instance.status = status
+                        instance.amount_end = new_amount
+                        instance.currency = Currency.objects.get(pk=1)
 
-                    instance.save()
-                    # if status = status1:
-                    #
-                    # else:
+
+                        instance.save()
+                    else:
+                        return HttpResponseNotFound("<h2>На Вашем счёту недостаточно средств</h2>")
+
 
 
                 else:
-                    return HttpResponseNotFound("<h2>На Вашем счёту недостаточно средств</h2>")
+                    return HttpResponseNotFound("<h2>Вы ввели сумму меньше 0</h2>")
 
 
     context = {

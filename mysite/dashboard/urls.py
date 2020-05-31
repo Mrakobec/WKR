@@ -18,6 +18,6 @@ urlpatterns = [
     path('inputcreate/', views.InPut_create_view),
     path('balancecreate/', views.addbalance),
     path('balance/', views.viewbalance),
-    path('outputcreate/', views.OutPutCreate)
+    # path('outputcreate/', views.OutPutCreate)
 
 ]

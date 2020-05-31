@@ -11,24 +11,40 @@ import time
 
 def home(request):
     return render(request, 'dashboard/home.html')
+# def balanceonforms(request):
+#     e = Balance.objects.get(user=request.user)
+#     b = e.balance
+#     print(b)
+#     print(request.user)
+#     return render(request, '', {"b": b})
 
-def base(request):
-    b = Balance.objects.filter(user=request.user)
-    print(request.user)
-    return (request, 'dashboard/base.html', {"b":b})
+# def base(request):
+#
+#     return (request, 'dashboard/.html', {"b":b})
 
 @login_required
 def dashboard(request):
-    b = Balance.objects.filter(user=request.user)
+    e = Balance.objects.get(user=request.user)
+    b = e.balance
+    print(b)
     print(request.user)
-    return render(request, 'dashboard/dashboard.html', {"balance": b})
+    context = {
+        "b": b
+    }
+    return render(request, 'dashboard/dashboard.html', context)
 
 @login_required
 def myMessages(request):
-    pay = InPut.objects.filter(user=request.user)
-    # comiss_end = pay.comiss1
-    # pay.comiss_end = comiss_end
-    return render(request, 'dashboard/myMessages.html', {"pay": pay})
+    pay = InPut.objects.filter(user=request.user).order_by('-date')
+    e = Balance.objects.get(user=request.user)
+    b = e.balance
+    print(b)
+    print(request.user)
+    context = {
+        "b": b,
+        "pay": pay
+    }
+    return render(request, 'dashboard/myMessages.html', context)
 
 @login_required
 def mySubs(request):
@@ -36,17 +52,77 @@ def mySubs(request):
 
 @login_required
 def myPayouts(request):
-    out = OutPut.objects.filter(user=request.user)
-    return render(request, 'dashboard/myPayouts.html', {"out": out})
+    out = OutPut.objects.filter(user=request.user).order_by('-date')
+    e = Balance.objects.get(user=request.user)
+    b = e.balance
+    print(b)
+    print(request.user)
+
+    my_form = OutPutForm(request.POST or None)
+    if my_form.is_valid():
+        if request.method == "POST":
+            my_new_amount = request.POST.get('amount')
+            if my_new_amount != None:
+                comiss = float(my_new_amount)*0.2
+                new_amount = float(my_new_amount) - comiss
+                print(new_amount)
+                if new_amount >= 0:
+                    print(new_amount)
+                    n = random.randint(1, 9)
+                    status1 = Status.objects.get(pk=1)
+                    status2= Status.objects.get(pk=2)
+                    if n >= 5:
+                        status = status1
+                    else:
+                        status = status2
+                    user = request.user
+                    print (user)
+                    instance = my_form.save(commit=False)
+                    instance.user = user
+                    instance.comiss = comiss
+                    instance.status = status
+                    instance.amount_end = new_amount
+                    instance.currency = Currency.objects.get(pk=1)
+
+                    instance.save()
+                    # if status = status1:
+                    #
+                    # else:
+
+
+                else:
+                    return HttpResponseNotFound("<h2>На Вашем счёту недостаточно средств</h2>")
+
+
+    context = {
+        "b": b,
+        "out": out,
+        'form': my_form
+    }
+    return render(request, 'dashboard/myPayouts.html', context)
 
 
 @login_required
 def support(request):
-    return render(request, 'dashboard/support.html')
+    e = Balance.objects.get(user=request.user)
+    b = e.balance
+    print(b)
+    print(request.user)
+    context = {
+        "b": b
+    }
+    return render(request, 'dashboard/support.html', context)
 
 @login_required
 def contacts(request):
-    return render(request, 'dashboard/contacts.html')
+    e = Balance.objects.get(user=request.user)
+    b = e.balance
+    print(b)
+    print(request.user)
+    context = {
+        "b": b
+    }
+    return render(request, 'dashboard/contacts.html', context)
 
 @login_required
 def logoutuser(request):
@@ -262,47 +338,47 @@ def addbalance(request):
 # def viewOutPut(request):
 #     out = OutPut.objects.all()
 #     return render(request, 'dashboard/myPayouts.html', {"out": out})
-def OutPutCreate(request):
-    my_form = OutPutForm(request.POST or None)
-    if my_form.is_valid():
-        if request.method == "POST":
-            my_new_amount = request.POST.get('amount')
-            if my_new_amount != None:
-                comiss = float(my_new_amount)*0.2
-                new_amount = float(my_new_amount) - comiss
-                print(new_amount)
-                if new_amount >= 0:
-                    print(new_amount)
-                    n = random.randint(1, 9)
-                    status1 = Status.objects.get(pk=1)
-                    status2= Status.objects.get(pk=2)
-                    if n >= 5:
-                        status = status1
-                    else:
-                        status = status2
-                    user = request.user
-                    print (user)
-                    instance = my_form.save(commit=False)
-                    instance.user = user
-                    instance.comiss = comiss
-                    instance.status = status
-                    instance.amount_end = new_amount
-                    instance.currency = Currency.objects.get(pk=1)
-
-                    instance.save()
-                    # if status = status1:
-                    #
-                    # else:
-
-
-                else:
-                    return HttpResponseNotFound("<h2>На Вашем счёту недостаточно средств</h2>")
-
-    context = {
-        'form': my_form
-
-    }
-    return render(request, "dashboard/outputcreate.html", context)
+# def OutPutCreate(request):
+#     my_form = OutPutForm(request.POST or None)
+#     if my_form.is_valid():
+#         if request.method == "POST":
+#             my_new_amount = request.POST.get('amount')
+#             if my_new_amount != None:
+#                 comiss = float(my_new_amount)*0.2
+#                 new_amount = float(my_new_amount) - comiss
+#                 print(new_amount)
+#                 if new_amount >= 0:
+#                     print(new_amount)
+#                     n = random.randint(1, 9)
+#                     status1 = Status.objects.get(pk=1)
+#                     status2= Status.objects.get(pk=2)
+#                     if n >= 5:
+#                         status = status1
+#                     else:
+#                         status = status2
+#                     user = request.user
+#                     print (user)
+#                     instance = my_form.save(commit=False)
+#                     instance.user = user
+#                     instance.comiss = comiss
+#                     instance.status = status
+#                     instance.amount_end = new_amount
+#                     instance.currency = Currency.objects.get(pk=1)
+#
+#                     instance.save()
+#                     # if status = status1:
+#                     #
+#                     # else:
+#
+#
+#                 else:
+#                     return HttpResponseNotFound("<h2>На Вашем счёту недостаточно средств</h2>")
+#
+#     context = {
+#         'form': my_form
+#
+#     }
+#     return render(request, "dashboard/outputcreate.html", context)
     # user = models.ForeignKey(User, on_delete=models.CASCADE)
     # recipient = models.CharField(max_length=50)
     # date = models.DateTimeField(auto_now_add=True)

@@ -24,7 +24,7 @@
       <!-- Sidebar  -->
       <nav id="sidebar">
           <div class="sidebar-header">
-              <h3>HLEBALERT</h3>
+              <h3>DONATION</h3>
               <strong>HA</strong>
           </div>
 
@@ -32,7 +32,7 @@
               <li {% if request.path == '/dashboard/' %} class="active"{% endif %}>
                 <a href="{% url 'dashboard' %}">
                     <i class="fas fa-home"></i>
-                    ПАНЕЛЬ УПРАВЛЕНИЯ
+                    ГЛАВНАЯ
                 </a>
               </li>
               <li {% if request.path == '/dashboard/messages/' %} class="active"{% endif %}>
@@ -40,12 +40,12 @@
                     <i class="fas fa-copy"></i>
                     МОИ СООБЩЕНИЯ
                 </a>
-              </li>
-              <li {% if request.path == '/dashboard/subscriptions/' %} class="active"{% endif %}>
-                <a href="{% url 'mySubs' %}">
-                    <i class="fas fa-copy"></i>
-                    МОИ ПОДПИСЧИКИ
-                </a>
+<!--              </li>-->
+<!--              <li {% if request.path == '/dashboard/subscriptions/' %} class="active"{% endif %}>-->
+<!--                <a href="{% url 'mySubs' %}">-->
+<!--                    <i class="fas fa-copy"></i>-->
+<!--                    МОИ ПОДПИСЧИКИ-->
+<!--                </a>-->
               </li>
               <li {% if request.path == '/dashboard/payouts/' %} class="active"{% endif %}>
                 <a href="{% url 'myPayouts' %}">
@@ -56,7 +56,7 @@
               <li {% if request.path == '/dashboard/support/' %} class="active"{% endif %}>
                   <a href="{% url 'support' %}">
                       <i class="fas fa-question"></i>
-                      ПОМОЩь
+                      ПОМОЩЬ
                   </a>
               </li>
               <li {% if request.path == '/dashboard/contacts/' %} class="active"{% endif %}>
@@ -74,16 +74,20 @@
             <div class="container-fluid">
 
 
-
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    {% csrf_token %}
+                    Баланс: {{ b }} RUB
+
                   <div class="ml-auto">
+
                     {% if user.is_authenticated %}
 
-                    Здравствуйте, {{ user.first_name }} {{ user.last_name }}!
+                    Вы вошли как - {{ user.first_name }} {{ user.last_name }}
                     <form action="{% url 'logoutuser' %}" method="POST">
                       {% csrf_token %}
-                      <button type="submit">Logout</button>
+                      <button type="submit">Выйти</button>
                     </form>
+
                     {% else %}
 
                     Congrats, you hacked this site

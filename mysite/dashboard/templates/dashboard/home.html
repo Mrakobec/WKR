@@ -1,5 +1,17 @@
 {% load static %}
-<h1>HOME</h1>
-<a href="{% url 'dashboard' %}">Go to dashboard</a>
-<a href="/login/vk-oauth2"><img src="{% static 'dashboard/vk.png' %}" width=50px data-toggle="tooltip" title="Login via VKontakte"></a>
-{{ user.username }}
+<head>
+<style>
+.text {
+text-align: center;
+}
+</style>
+</head>
+<body>
+<div class="text">
+<h1>Для входа воспользуйтесь сервисом VK</h1>
+<h2>Либо, если Вы уже вошли, перейдите на главную страницу кабинета</h2>
+<h3><a href="{% url 'dashboard' %}">Перейти на главную</a></h3>
+<h3><a href="/login/vk-oauth2"><img src="{% static 'dashboard/vk.png' %}" width=50px data-toggle="tooltip" title="Login via VKontakte"></a></h3>
+    </div>
+</body>
+<!--{{ user.username }}-->

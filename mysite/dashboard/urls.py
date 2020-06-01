@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 from . import views
 
 urlpatterns = [
@@ -14,8 +14,9 @@ urlpatterns = [
     path('users/edit/<int:id>/', views.usersedit),
     path('users/delete/<int:id>/', views.usersdelete),
     path('input/', views.input),
+    path('r/<str:username>/', views.InPut_create_view, name='inpustcreate'),
     # path('input/create/', views.inputcreate),
-    path('inputcreate/', views.InPut_create_view),
+    # path('inputcreate/', views.InPut_create_view, name='inputcreate'),
     path('balancecreate/', views.addbalance),
     path('balanceedit/', views.createbalance),
     # path('balance/', views.viewbalance),

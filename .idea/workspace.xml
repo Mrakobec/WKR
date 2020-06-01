@@ -127,6 +127,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="731" y="324" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1591005399300" />
+    <state x="789" y="411" key="#com.jetbrains.python.refactoring.move.PyMoveModuleMembersDialog" timestamp="1591014008659">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="789" y="411" key="#com.jetbrains.python.refactoring.move.PyMoveModuleMembersDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1591014008659" />
     <state x="740" y="276" key="FileChooserDialogImpl" timestamp="1590657611995">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -151,9 +155,9 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1136" y="345" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590657576168" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1590940769941">
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1591014893932">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1590940769941" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1591014893932" />
   </component>
 </project>

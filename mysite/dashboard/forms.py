@@ -4,10 +4,10 @@ from .models import InPut, Balance, OutPut
 
 class InputForm(forms.ModelForm):
     # date = forms.DateTimeField()
+    # user = forms.
     class Meta:
         model = InPut
         fields = [
-            'user',
             'name',
             'amount',
             'currency',

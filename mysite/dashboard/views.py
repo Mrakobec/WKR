@@ -33,7 +33,7 @@ def dashboard(request):
             "b": b
         }
         return render(request, 'dashboard/dashboard.html', context)
-    except:
+    except Balance.DoesNotExist:
         person = User.objects.get(username=request.user)
         person.username = request.user
         if request.method == "POST":
@@ -42,12 +42,7 @@ def dashboard(request):
             k = User.objects.get(username=request.user)
             b1 = Balance(user=k, output=0, input=0, balance=0, currency=Currency(pk=1))
             b1.save()
-            # e = Balance.objects.get(user=request.user)
-            # b = e.balance
         else:
-            # context = {
-            #     # "b": b
-            # }
             return render(request, "dashboard/balanceedit.html", {"person": person})
         return HttpResponseRedirect("/dashboard/")
 
@@ -56,7 +51,8 @@ def dashboard(request):
 
 @login_required
 def myMessages(request):
-    pay = InPut.objects.filter(user=request.user).order_by('-date')
+    s2 = Status.objects.get(pk=2)
+    pay = InPut.objects.filter(user=request.user, status=s2).order_by('-date')
     e = Balance.objects.get(user=request.user)
     b = e.balance
     print(b)
@@ -81,50 +77,51 @@ def myPayouts(request):
 
     my_form = OutPutForm(request.POST or None)
     if my_form.is_valid():
-        # if request.method == "POST":
-        my_new_amount = request.POST.get('amount')
-        comiss = float(my_new_amount) * 0.2
-        new_amount = float(my_new_amount) - comiss
-        final_sum = float(my_new_amount) + comiss
-        if final_sum != None:
-            print(new_amount)
-            print(final_sum)
-            if new_amount >= 0:
-                if final_sum <= b:
-                    print(new_amount)
-                    n = random.randint(1, 9)
-                    status1 = Status.objects.get(pk=1)
-                    status2 = Status.objects.get(pk=2)
-                    if n >= 5:
-                        status = status1
+        if request.method == "POST":
+            my_new_amount = request.POST.get('amount')
+            comiss = float(my_new_amount) * 0.2
+            new_amount = float(my_new_amount) - comiss
+            final_sum = float(my_new_amount) + comiss
+            if final_sum != None:
+                print(new_amount)
+                print(final_sum)
+                if new_amount >= 0:
+                    if final_sum <= b:
+                        print(new_amount)
+                        n = random.randint(1, 9)
+                        status1 = Status.objects.get(pk=1)
+                        status2 = Status.objects.get(pk=2)
+                        if n >= 5:
+                            status = status1
+                        else:
+                            status = status2
+                        user = request.user
+                        print (user)
+                        instance = my_form.save(commit=False)
+                        instance.user = user
+                        instance.comiss = comiss
+                        instance.status = status
+                        instance.amount_end = new_amount
+                        instance.currency = Currency.objects.get(pk=1)
+                        if n <= 5:
+                            rq = User.objects.get(username=request.user)
+                            k = Balance.objects.get(user=rq)
+                            o1 = float(k.output) +new_amount
+                            b2 = float(k.balance) - final_sum
+                            k.output = o1
+                            k.balance = b2
+                            k.save()
+                        instance.save()
+
+                        my_form = OutPutForm()
                     else:
-                        status = status2
-                    user = request.user
-                    print (user)
-                    instance = my_form.save(commit=False)
-                    instance.user = user
-                    instance.comiss = comiss
-                    instance.status = status
-                    instance.amount_end = new_amount
-                    instance.currency = Currency.objects.get(pk=1)
-                    if n <= 5:
-                        rq = User.objects.get(username=request.user)
-                        k = Balance.objects.get(user=rq)
-                        o1 = float(k.output) +new_amount
-                        b2 = float(k.balance) - final_sum
-                        k.output = o1
-                        k.balance = b2
-                        k.save()
-                    instance.save()
+                        return HttpResponseNotFound("<h2>На Вашем счёту недостаточно средств</h2>")
 
-                    my_form = OutPutForm()
+
+
                 else:
-                    return HttpResponseNotFound("<h2>На Вашем счёту недостаточно средств</h2>")
-
-
-
-            else:
-                return HttpResponseNotFound("<h2>Вы ввели сумму меньше 0</h2>")
+                    return HttpResponseNotFound("<h2>Вы ввели сумму меньше 0</h2>")
+        return redirect('myPayouts')
 
 
     context = {
@@ -239,13 +236,20 @@ def input(request):
 #         tom.save()
 #     return HttpResponseRedirect("/dashboard/input/")
 
-def InPut_create_view(request):
+def InPut_create_view(request, username):
     my_form = InputForm(request.POST or None)
+    us = get_object_or_404(User, username=username)
+
+
+
     if my_form.is_valid():
         if request.method == "POST":
+            # us = User.objects.get(username=username)
+            print(us)
             my_new_amount = request.POST.get('amount')
             if my_new_amount != None:
                 n = random.randint(1,9)
+                print(n)
                 status1 = Status.objects.get(pk=1)
                 status2 = Status.objects.get(pk=2)
                 if n >= 5:
@@ -262,8 +266,7 @@ def InPut_create_view(request):
                 amount_end = amounted - comiss_end
                 #Обновление баланса
                 if n <= 5:
-                    rq = User.objects.get(username=request.user)
-                    k = Balance.objects.get(user=rq)
+                    k = Balance.objects.get(user=us)
                     o1 = k.output
                     i1 = float(k.input) + amount_end
                     b2 = float(k.balance) + amount_end
@@ -280,6 +283,8 @@ def InPut_create_view(request):
                 print(amount_end)
 
             instance = my_form.save(commit=False)
+            instance.user = us
+            print(instance.user)
             instance.status = status
             instance.comiss1 = comiss1
             instance.comiss2 = comiss2
@@ -289,13 +294,22 @@ def InPut_create_view(request):
 
 
             my_form = InputForm()
-
+            # print(request)
+        return redirect('myMessages')
 
             # save article to db
     context = {
         'form': my_form
     }
     return render(request, "dashboard/InPut_create.html", context)
+
+                                    # rq = User.objects.get(username=request.user)
+                                    #                             k = Balance.objects.get(user=rq)
+                                    #                             o1 = float(k.output) +new_amount
+                                    #                             b2 = float(k.balance) - final_sum
+                                    #                             k.output = o1
+                                    #                             k.balance = b2
+                                    #                             k.save()
 
 # def InPut_create_view(request):
 #     form = InputForm(request.POST or None)

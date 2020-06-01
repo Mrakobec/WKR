@@ -89,7 +89,7 @@ def myPayouts(request):
             my_new_amount = request.POST.get('amount')
             comiss = float(my_new_amount) * 0.2
             new_amount = float(my_new_amount) - comiss
-            final_sum = float(my_new_amount) + comiss
+            final_sum = float(my_new_amount)
             if final_sum != None:
                 print(new_amount)
                 print(final_sum)
@@ -104,7 +104,7 @@ def myPayouts(request):
                         else:
                             status = status2
                         user = request.user
-                        print (user)
+                        print(user)
                         instance = my_form.save(commit=False)
                         instance.user = user
                         instance.comiss = comiss
@@ -114,7 +114,7 @@ def myPayouts(request):
                         if n <= 5:
                             rq = User.objects.get(username=request.user)
                             k = Balance.objects.get(user=rq)
-                            o1 = float(k.output) +new_amount
+                            o1 = float(k.output) + new_amount
                             b2 = float(k.balance) - final_sum
                             k.output = o1
                             k.balance = b2

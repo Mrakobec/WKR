@@ -25,7 +25,7 @@ def home(request):
 @login_required
 def dashboard(request):
     try:
-        e= Balance.objects.get(user=request.user)
+        e = Balance.objects.get(user=request.user)
         b = e.balance
         print(b)
         print(request.user)
@@ -34,7 +34,20 @@ def dashboard(request):
         }
         return render(request, 'dashboard/dashboard.html', context)
     except:
-        return HttpResponseRedirect("/dashboard/balanceedit/")
+        person = User.objects.get(username=request.user)
+        person.username = request.user
+        if request.method == "POST":
+            person.username = request.POST.get("name")
+            person.save()
+            k = User.objects.get(username=request.user)
+            b1 = Balance(user=k, output=0, input=0, balance=0, currency=Currency(pk=1))
+            b1.save()
+        else:
+            context = {
+                "b": b
+            }
+            return render(request, "dashboard/balanceedit.html", {"person": person})
+        return render(request, 'dashboard/dashboard.html', context)
 
 
 
@@ -79,7 +92,7 @@ def myPayouts(request):
                     print(new_amount)
                     n = random.randint(1, 9)
                     status1 = Status.objects.get(pk=1)
-                    status2= Status.objects.get(pk=2)
+                    status2 = Status.objects.get(pk=2)
                     if n >= 5:
                         status = status1
                     else:

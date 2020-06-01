@@ -1,17 +1,43 @@
 <!DOCTYPE html>
+{% load static %}
 <html>
 <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+      <meta charset="UTF-8">
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'dashboard/style.css' %}">
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard</title>
     <meta charset="utf-8" />
-    <title>Модели в Django</title>
+    <title>Создайте страницу пожертвований</title>
 </head>
 <body class="container">
     <form method="POST">
         {% csrf_token %}
-        <p>
-            <label>Введите ник</label><br>
-            <input type="text" name="name" value="{{person.username}}" />
-        </p>
-        <input type="submit" value="Сохранить" >
+<br><br><br><br><br><br><br><br><br><br>
+            <h4><label for="basic-url">Выберете имя аккаунта:</label></h4>
+
+                <div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon3">@</span>
+  </div>
+<input class="form-control" id="basic-url" aria-describedby="basic-addon3" type= "text" placeholder="Псевдоним" value="{{request.user}}" name="newusername">
+</div>
+<!--            <label>Введите псевдоним:</label><br>-->
+<!--            <input type="text" name="name" value="{{person.username}}" />-->
+<!--        </p>-->
+        <div class="modal-footer">
+<!--        <button type="button" class="btn btn-secondary" data-dismiss="modal">ОТМЕНА</button>-->
+        <button class="btn btn-primary" type="submit">СОХРАНИТЬ</button>
+      </div>
     </form>
 </body>
 </html>

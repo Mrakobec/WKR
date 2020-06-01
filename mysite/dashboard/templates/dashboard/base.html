@@ -25,7 +25,7 @@
       <nav id="sidebar">
           <div class="sidebar-header">
               <h3>DONATION</h3>
-              <strong>HA</strong>
+              <strong>D</strong>
           </div>
 
           <ul class="list-unstyled components">
@@ -39,6 +39,7 @@
                 <a href="{% url 'myMessages' %}">
                     <i class="fas fa-copy"></i>
                     МОИ СООБЩЕНИЯ
+
                 </a>
 <!--              </li>-->
 <!--              <li {% if request.path == '/dashboard/subscriptions/' %} class="active"{% endif %}>-->
@@ -83,6 +84,8 @@
                     {% if user.is_authenticated %}
 
                     Вы вошли как - {{ user.first_name }} {{ user.last_name }}
+                      <br>
+                      Ваш псевдоним - {{ user.username }}
                     <form action="{% url 'logoutuser' %}" method="POST">
                       {% csrf_token %}
                       <button type="submit">Выйти</button>

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
-from .models import InPut, Userss, User, Balance, OutPut, Status, Currency
+from .models import InPut, User, Balance, OutPut, Status, Currency
 from django.http import HttpResponseRedirect
 from django.http import HttpResponseNotFound
 from .forms import InputForm, BalanceForm, OutPutForm
@@ -29,15 +29,23 @@ def dashboard(request):
         b = e.balance
         print(b)
         print(request.user)
+        person = User.objects.get(username=request.user)
+        person.username = request.user
+        if request.method == "POST":
+            person.username = request.POST.get("newusername")
+            person.save()
+            return redirect('dashboard')
         context = {
             "b": b
         }
+
         return render(request, 'dashboard/dashboard.html', context)
     except Balance.DoesNotExist:
         person = User.objects.get(username=request.user)
         person.username = request.user
+        print(request.user)
         if request.method == "POST":
-            person.username = request.POST.get("name")
+            person.username = request.POST.get("newusername")
             person.save()
             k = User.objects.get(username=request.user)
             b1 = Balance(user=k, output=0, input=0, balance=0, currency=Currency(pk=1))
@@ -299,7 +307,8 @@ def InPut_create_view(request, username):
 
             # save article to db
     context = {
-        'form': my_form
+        'form': my_form,
+        'user': us
     }
     return render(request, "dashboard/InPut_create.html", context)
 
@@ -374,62 +383,62 @@ def InPut_create_view(request, username):
 
 #Создание первоначальной таблицы для пользователя
 
-def createbalance(request):
-    #
-    # if request.method == "POST":
-    #     user = request.user
-    #     user = request.POST.get('nickname')
-    try:
-        # if request.method == "POST":
-        print(balanceuser = Balance.objects.get(user=request.user))
-        return HttpResponseRedirect("/dashboard/input/")
-
-    except :
-        person = User.objects.get(username=request.user)
-        person.username = request.user
-        if request.method == "POST":
-            person.username = request.POST.get("name")
-            person.save()
-            my_form = BalanceForm(request.POST or None)
-            if my_form.is_valid():
-                instance = my_form.save(commit=False)
-                instance.user = User.objects.get(usename=request.user)
-                instance.output = 0
-                instance.input = 0
-                instance.balance = 0
-                instance.currency = Currency(pk=1)
-                instance.save
-            return HttpResponseRedirect("dashboard/input")
-        else:
-            return render(request, "dashboard/balanceedit.html", {"person": person})
-        return HttpResponseRedirect("dashboard/input")
-
-def addbalance(request):
-    my_form = BalanceForm(request.POST or None)
-    if my_form.is_valid():
-
-        if request.method == "POST":
-            my_new_input = request.POST.get('input')
-            my_new_output = request.POST.get('output')
-            if my_new_input != None:
-                if my_new_output != None:
-                    new_input = float(my_new_input)
-                    new_output = float(my_new_output)*0.2
-                    new_balance = new_input - new_output
-                    if new_balance >= 0:
-                        print(new_balance)
-                        instance = my_form.save(commit=False)
-                        instance.balance = new_balance
-                        instance.save()
-                        my_form = BalanceForm()
-                    else:
-                        return HttpResponseNotFound("<h2>На Вашем счёту недостаточно средств</h2>")
-
-    context = {
-        'form': my_form
-
-    }
-    return render(request, "dashboard/balancecreate.html", context)
+                    # def createbalance(request):
+                    #     #
+                    #     # if request.method == "POST":
+                    #     #     user = request.user
+                    #     #     user = request.POST.get('nickname')
+                    #     try:
+                    #         # if request.method == "POST":
+                    #         print(balanceuser = Balance.objects.get(user=request.user))
+                    #         return HttpResponseRedirect("/dashboard/input/")
+                    #
+                    #     except :
+                    #         person = User.objects.get(username=request.user)
+                    #         person.username = request.user
+                    #         if request.method == "POST":
+                    #             person.username = request.POST.get("name")
+                    #             person.save()
+                    #             my_form = BalanceForm(request.POST or None)
+                    #             if my_form.is_valid():
+                    #                 instance = my_form.save(commit=False)
+                    #                 instance.user = User.objects.get(usename=request.user)
+                    #                 instance.output = 0
+                    #                 instance.input = 0
+                    #                 instance.balance = 0
+                    #                 instance.currency = Currency(pk=1)
+                    #                 instance.save
+                    #             return HttpResponseRedirect("dashboard/input")
+                    #         else:
+                    #             return render(request, "dashboard/balanceedit.html", {"person": person})
+                    #         return HttpResponseRedirect("dashboard/input")
+                    #
+                    # def addbalance(request):
+                    #     my_form = BalanceForm(request.POST or None)
+                    #     if my_form.is_valid():
+                    #
+                    #         if request.method == "POST":
+                    #             my_new_input = request.POST.get('input')
+                    #             my_new_output = request.POST.get('output')
+                    #             if my_new_input != None:
+                    #                 if my_new_output != None:
+                    #                     new_input = float(my_new_input)
+                    #                     new_output = float(my_new_output)*0.2
+                    #                     new_balance = new_input - new_output
+                    #                     if new_balance >= 0:
+                    #                         print(new_balance)
+                    #                         instance = my_form.save(commit=False)
+                    #                         instance.balance = new_balance
+                    #                         instance.save()
+                    #                         my_form = BalanceForm()
+                    #                     else:
+                    #                         return HttpResponseNotFound("<h2>На Вашем счёту недостаточно средств</h2>")
+                    #
+                    #     context = {
+                    #         'form': my_form
+                    #
+                    #     }
+                    #     return render(request, "dashboard/balancecreate.html", context)
 # def newuser (request):
 #     try:
 #         e = Balance.objects.get(user=request.user)

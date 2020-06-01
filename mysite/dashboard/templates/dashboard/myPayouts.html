@@ -4,7 +4,7 @@
 
 
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="">Добавить способ оплаты</button>
-
+<form action="." method="post">
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -16,22 +16,22 @@
       </div>
       <div class="modal-body">
 
-        <form action="." method="post">
+
     {% csrf_token %}
     {{ form.as_p }}
 <!--    <input type="number" name="amount" placeholder="Your amount:">-->
-    <input type="submit" value="Save"/>
-        </form>
+<!--    <input type="submit" value="Save"/>-->
+
 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">ОТМЕНА</button>
-        <button type="button" class="btn btn-primary">СОХРАНИТЬ</button>
+        <button class="btn btn-primary" type="submit">СОХРАНИТЬ</button>
       </div>
     </div>
   </div>
 </div>
-
+</form>
 <br>
 <br>
 <!--<table class="table">-->
@@ -84,13 +84,13 @@
 <!--        <td>ошибка</td>-->
 <!--    </tr>-->
 <!--</table>-->
-<h2> Вывод средств:</h2>
-<form action="." method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-<!--    <input type="number" name="amount" placeholder="Your amount:">-->
-    <input type="submit" value="Save"/>
-</form>
+<!--<h2> Вывод средств:</h2>-->
+<!--<form action="." method="post">-->
+<!--    {% csrf_token %}-->
+<!--    {{ form.as_p }}-->
+<!--&lt;!&ndash;    <input type="number" name="amount" placeholder="Your amount:">&ndash;&gt;-->
+<!--    <input type="submit" value="Save"/>-->
+<!--</form>-->
 
 
    <h2>Выведенные средства:</h2>

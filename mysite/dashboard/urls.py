@@ -17,7 +17,8 @@ urlpatterns = [
     # path('input/create/', views.inputcreate),
     path('inputcreate/', views.InPut_create_view),
     path('balancecreate/', views.addbalance),
-    path('balance/', views.viewbalance),
+    path('balanceedit/', views.createbalance),
+    # path('balance/', views.viewbalance),
     # path('outputcreate/', views.OutPutCreate)
 
 ]

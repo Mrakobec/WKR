@@ -19,12 +19,13 @@ class BalanceForm(forms.ModelForm):
     class Meta:
         model = Balance
         fields = [
-            'user',
-            'input',
-            'output',
-            'currency'
+
         ]
 class OutPutForm(forms.ModelForm):
+    recipient = forms.CharField(label='Id пользователя VK',)
+    amount = forms.DecimalField(label='Сумма вывода',)
+    payment_method = forms.ChoiceField(label='Способ вывода',)
+
     class Meta:
         model = OutPut
         fields = [
@@ -33,6 +34,12 @@ class OutPutForm(forms.ModelForm):
             'payment_method',
             # 'status'
         ]
+# class newUser(forms.ModelForm):
+#     UniqueConstraint
+#     user =
+#     class Meta:
+#         constraints = [
 
+        # ]
 # class RawInputForm(forms.Form):
 #     user = forms.

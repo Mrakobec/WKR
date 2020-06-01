@@ -30,6 +30,11 @@ class Status(models.Model):
     def __str__(self):
         return (self.name)
 
+class Payment_Method(models.Model):
+    name = models.CharField(max_length=50)
+    def __str__(self):
+        return (self.name)
+
 
 
 class InPut(models.Model):
@@ -47,13 +52,15 @@ class InPut(models.Model):
     def __str__(self):
         return (self.name)
 
+
+
 class OutPut(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     recipient = models.CharField(max_length=50)
     date = models.DateTimeField(auto_now_add=True)
     amount = models.DecimalField(decimal_places=2, max_digits=10)
     currency = models.ForeignKey(Currency, on_delete=models.PROTECT)
-    payment_method = models.CharField(max_length=50)
+    payment_method = models.ForeignKey(Payment_Method, on_delete=models.PROTECT)
     comiss = models.DecimalField(decimal_places=2, max_digits=10)
     amount_end = models.DecimalField(decimal_places=2, max_digits=10)
     status = models.ForeignKey(Status, on_delete=models.PROTECT)
@@ -66,5 +73,6 @@ class Balance(models.Model):
     output = models.DecimalField(decimal_places=2, max_digits=10)
     balance = models.DecimalField(decimal_places=2, max_digits=10)
     currency = models.ForeignKey(Currency, on_delete=models.PROTECT)
-    def __str__(self):
-        return (self.user)
+    def __int__(self):
+        return (self.id)
+

@@ -42,12 +42,14 @@ def dashboard(request):
             k = User.objects.get(username=request.user)
             b1 = Balance(user=k, output=0, input=0, balance=0, currency=Currency(pk=1))
             b1.save()
+            # e = Balance.objects.get(user=request.user)
+            # b = e.balance
         else:
-            context = {
-                "b": b
-            }
+            # context = {
+            #     # "b": b
+            # }
             return render(request, "dashboard/balanceedit.html", {"person": person})
-        return render(request, 'dashboard/dashboard.html', context)
+        return HttpResponseRedirect("/dashboard/")
 
 
 
@@ -363,24 +365,6 @@ def createbalance(request):
         else:
             return render(request, "dashboard/balanceedit.html", {"person": person})
         return HttpResponseRedirect("dashboard/input")
-
-    # try:
-    #     person = User.objects.get(id=id)
-    #
-    #     if request.method == "POST":
-    #         person.username = request.POST.get("name")
-    #         person.save()
-    #         return HttpResponseRedirect("/dashboard/users/")
-    #     else:
-    #         return render(request, "dashboard/usersedit.html", {"person": person})
-    # except User.DoesNotExist:
-    #     return HttpResponseNotFound("<h2>Person not found</h2>")
-
-    # user = models.OneToOneField(User, on_delete=models.CASCADE)
-    # input = models.DecimalField(decimal_places=2, max_digits=10)
-    # output = models.DecimalField(decimal_places=2, max_digits=10)
-    # balance = models.DecimalField(decimal_places=2, max_digits=10)
-    # currency = models.ForeignKey(Currency, on_delete=models.PROTECT)
 
 def addbalance(request):
     my_form = BalanceForm(request.POST or None)

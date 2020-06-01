@@ -107,7 +107,14 @@ def myPayouts(request):
                     instance.status = status
                     instance.amount_end = new_amount
                     instance.currency = Currency.objects.get(pk=1)
-
+                    if n <= 5:
+                        rq = User.objects.get(username=request.user)
+                        k = Balance.objects.get(user=rq)
+                        o1 = float(k.output) +new_amount
+                        b2 = float(k.balance) - final_sum
+                        k.output = o1
+                        k.balance = b2
+                        k.save()
                     instance.save()
 
                     my_form = OutPutForm()
@@ -242,14 +249,28 @@ def InPut_create_view(request):
                 status1 = Status.objects.get(pk=1)
                 status2 = Status.objects.get(pk=2)
                 if n >= 5:
+                    #Неуспешно
                     status = status1
                 else:
+                    #Успешно
                     status = status2
+
                 amounted = float(my_new_amount)
                 comiss1 = round((amounted * 0.05), 2)
                 comiss2 = round((amounted * 0.01), 2)
                 comiss_end = comiss1 + comiss2
                 amount_end = amounted - comiss_end
+                #Обновление баланса
+                if n <= 5:
+                    rq = User.objects.get(username=request.user)
+                    k = Balance.objects.get(user=rq)
+                    o1 = k.output
+                    i1 = float(k.input) + amount_end
+                    b2 = float(k.balance) + amount_end
+                    k.input = i1
+                    k.balance = b2
+                    k.save()
+
                 print(n)
                 print(status)
                 print(my_new_amount)
@@ -257,6 +278,7 @@ def InPut_create_view(request):
                 print(comiss2)
                 print(comiss_end)
                 print(amount_end)
+
             instance = my_form.save(commit=False)
             instance.status = status
             instance.comiss1 = comiss1
@@ -264,6 +286,8 @@ def InPut_create_view(request):
             instance.comiss_end = comiss_end
             instance.amount_end = amount_end
             instance.save()
+
+
             my_form = InputForm()
 
 

@@ -24,7 +24,7 @@ class BalanceForm(forms.ModelForm):
 class OutPutForm(forms.ModelForm):
     recipient = forms.CharField(label='Id пользователя VK',)
     amount = forms.DecimalField(label='Сумма вывода',)
-    payment_method = forms.ChoiceField(label='Способ вывода',)
+    # payment_method = forms.ChoiceField(label='Способ вывода',)
 
     class Meta:
         model = OutPut

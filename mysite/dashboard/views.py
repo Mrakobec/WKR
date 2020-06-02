@@ -30,9 +30,10 @@ def dashboard(request):
         print(b)
         print(request.user)
         person = User.objects.get(username=request.user)
-        person.username = request.user
         if request.method == "POST":
             person.username = request.POST.get("newusername")
+            if User.objects.all().filter(username=person.username).exists():
+                return HttpResponseNotFound("<h2>Данный никнейм уже зарегистрирован</h2>")
             person.save()
             return redirect('dashboard')
         context = {
@@ -45,7 +46,8 @@ def dashboard(request):
         print(request.user)
         if request.method == "POST":
             person.username = request.POST.get("newusername")
-            #ТУТ ИСПРАВИТЬ!
+            if User.objects.all().filter(username=person.username).exists():
+                return HttpResponseNotFound("<h2>Данный никнейм уже зарегистрирован</h2>")
             person.save()
             k = User.objects.get(username=person.username)
             b1 = Balance(user=k, output=0, input=0, balance=0, currency=Currency(pk=1))
@@ -54,8 +56,6 @@ def dashboard(request):
         else:
             return render(request, "dashboard/balanceedit.html", {"person": person})
         return HttpResponseRedirect("/dashboard/")
-    except User.IntegrityError:
-        return HttpResponseNotFound("<h2>Данный ник уже занят</h2>")
     except User.DoesNotExist:
         return HttpResponseRedirect("/dashboard/")
 

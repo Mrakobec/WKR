@@ -38,22 +38,27 @@ def dashboard(request):
         context = {
             "b": b
         }
-
         return render(request, 'dashboard/dashboard.html', context)
     except Balance.DoesNotExist:
         person = User.objects.get(username=request.user)
-        person.username = request.user
+        # person.username = request.user
         print(request.user)
         if request.method == "POST":
             person.username = request.POST.get("newusername")
             #ТУТ ИСПРАВИТЬ!
             person.save()
-            k = User.objects.get(username=request.user)
+            k = User.objects.get(username=person.username)
             b1 = Balance(user=k, output=0, input=0, balance=0, currency=Currency(pk=1))
             b1.save()
+            return HttpResponseRedirect("/dashboard/")
         else:
             return render(request, "dashboard/balanceedit.html", {"person": person})
         return HttpResponseRedirect("/dashboard/")
+    except User.IntegrityError:
+        return HttpResponseNotFound("<h2>Данный ник уже занят</h2>")
+    except User.DoesNotExist:
+        return HttpResponseRedirect("/dashboard/")
+
 
 
 

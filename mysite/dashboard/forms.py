@@ -1,7 +1,23 @@
 from django import forms
-
+# import
 from .models import InPut, Balance, OutPut
 
+# class UserForm(forms.ModelForm):
+#     class Meta:
+#         model = User
+#         fields = [
+#             'username'
+#         ]
+#         # widgets = {
+#         #     'username': forms.TextInput(attrs={'class': 'form-control'})
+#         # }
+#     def _clean_fields(self):
+#         username = self.cleaned_data.get("username")
+#         if "CFE" in username:
+#             return username
+#         else:
+#             return forms.ValidationError("This is not a valid title")
+#
 class InputForm(forms.ModelForm):
     # date = forms.DateTimeField()
     # user = forms.

@@ -51,21 +51,25 @@ def dashboard(request):
     except Balance.DoesNotExist:
         person = User.objects.get(username=request.user)
         # person.username = request.user
-        print(request.user)
+        print(1)
         if request.method == "POST":
+            print(2)
             person.username = request.POST.get("newusername")
-            new_user = User.objects.get(username=person.username)
-            if Balance.objects.all().filter(user=new_user).exists():
-                error = "Данный никнейм уже зарегистрирован"
-                context = {
-                    "error": error
-                }
-                return render(request, 'dashboard/balanceedit.html', context)
-            person.save()
-            k = User.objects.get(username=person.username)
-            b1 = Balance(user=k, output=0, input=0, balance=0, currency=Currency(pk=1))
-            b1.save()
-            return HttpResponseRedirect("/dashboard/")
+            try:
+                new_user = User.objects.get(username=person.username)
+                print(3)
+                if Balance.objects.all().filter(user=new_user).exists():
+                    error = "Данный никнейм уже зарегистрирован"
+                    context = {
+                        "error": error
+                    }
+                    return render(request, 'dashboard/balanceedit.html', context)
+            except:
+                person.save()
+                k = User.objects.get(username=person.username)
+                b1 = Balance(user=k, output=0, input=0, balance=0, currency=Currency(pk=1))
+                b1.save()
+                return HttpResponseRedirect('/dashboard/')
         else:
             return render(request, "dashboard/balanceedit.html", {"person": person})
         return HttpResponseRedirect("/dashboard/")

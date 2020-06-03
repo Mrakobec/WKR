@@ -24,12 +24,12 @@ class UserForm(forms.ModelForm):
         else:
             return forms.ValidationError("This is not a valid title")
 #
-class BankForm(forms.Form):
-    card_number = forms.CharField(min_length=16, max_length=16, type=number, error_messages={'required': 'Введите номер Вашей карты'})
-    name = forms.CharField(max_length=30)
-    month = forms.ChoiceField('01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12')
-    year = forms.ChoiceField('15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26')
-    cvc = forms.IntegerField(max_value=999, min_value=000)
+# class BankForm(forms.Form):
+#     card_number = forms.CharField(min_length=16, max_length=16, error_messages={'required': 'Введите номер Вашей карты'})
+#     name = forms.CharField(max_length=30)
+#     month = forms.ChoiceField('01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12')
+#     year = forms.ChoiceField('15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26')
+#     cvc = forms.IntegerField(max_value=999, min_value=000)
 
 class InputForm(forms.ModelForm):
     # date = forms.DateTimeField()

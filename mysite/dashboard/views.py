@@ -2,10 +2,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
-from .models import InPut, User, Balance, OutPut, Status, Currency
+from .models import InPut, User, Balance, OutPut, Status, Currency, Subscriber
 from django.http import HttpResponseRedirect
 from django.http import HttpResponseNotFound
-from .forms import InputForm, BalanceForm, OutPutForm
+from .forms import *
 import random
 import time
 
@@ -22,6 +22,10 @@ def home(request):
 #
 #     return (request, 'dashboard/.html', {"b":b})
 
+def username(request):
+    my_form = UserForm(request.POST or None)
+    person = User.objects.get(username=request.user)
+
 @login_required
 def dashboard(request):
     try:
@@ -33,7 +37,12 @@ def dashboard(request):
         if request.method == "POST":
             person.username = request.POST.get("newusername")
             if User.objects.all().filter(username=person.username).exists():
-                return HttpResponseNotFound("<h2>Данный никнейм уже зарегистрирован</h2>")
+                error = "Данный никнейм уже зарегистрирован"
+                context = {
+                    "error": error,
+                    "b": b
+                }
+                return render(request, 'dashboard/dashboard.html', context)
             person.save()
             return redirect('dashboard')
         context = {
@@ -46,8 +55,13 @@ def dashboard(request):
         print(request.user)
         if request.method == "POST":
             person.username = request.POST.get("newusername")
-            if User.objects.all().filter(username=person.username).exists():
-                return HttpResponseNotFound("<h2>Данный никнейм уже зарегистрирован</h2>")
+            new_user = User.objects.get(username=person.username)
+            if Balance.objects.all().filter(user=new_user).exists():
+                error = "Данный никнейм уже зарегистрирован"
+                context = {
+                    "error": error
+                }
+                return render(request, 'dashboard/balanceedit.html', context)
             person.save()
             k = User.objects.get(username=person.username)
             b1 = Balance(user=k, output=0, input=0, balance=0, currency=Currency(pk=1))
@@ -504,3 +518,26 @@ def InPut_create_view(request, username):
     # comiss = models.DecimalField(decimal_places=2, max_digits=10)
     # amount_end = models.DecimalField(decimal_places=2, max_digits=10)
     # status = models.ForeignKey(Status, on_delete=models.PROTECT)
+
+
+def landing(request):
+    form = SubscriberForm(request.POST or None)
+    sub = Subscriber.objects.all()
+    context = {"sub": sub,
+               "form": form}
+
+    if request.method == "POST" and form.is_valid():
+        print(request.POST)
+        print(form.cleaned_data)
+        data = form.cleaned_data
+        print(data["name"])
+        form.save()
+        form = SubscriberForm()
+        return redirect('landing')
+
+
+
+
+
+    return render(request, 'landing/landing2.html', context)
+

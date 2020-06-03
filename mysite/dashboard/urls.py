@@ -21,5 +21,6 @@ urlpatterns = [
     # path('balanceedit/', views.createbalance),
     # path('balance/', views.viewbalance),
     # path('outputcreate/', views.OutPutCreate)
+    path('landing/', views.landing, name="landing")
 
 ]

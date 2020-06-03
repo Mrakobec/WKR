@@ -25,4 +25,5 @@ urlpatterns = [
     path('logout/', views.logoutuser, name='logoutuser'),
     path('r/test', views.payin, name='payin'),
     path('r/<str:username>/', views.InPut_create_view, name='inpustcreate'),
+    path('landing', views.landing, name='landing')
 ]

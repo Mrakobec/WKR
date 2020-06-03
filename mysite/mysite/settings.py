@@ -26,7 +26,7 @@ SECRET_KEY = 'v=7%xx@v57f-rfuy1l7_+5*3b27x*#t7=v-+hwdase*=p8^ol)'
 DEBUG = True
 
 # ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]']
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'mysite']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'mysite', 'g.zbronica.ru']
 
 
 # Application definition

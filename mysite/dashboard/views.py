@@ -22,14 +22,13 @@ def home(request):
 #
 #     return (request, 'dashboard/.html', {"b":b})
 
-def username(request):
-    my_form = UserForm(request.POST or None)
-    person = User.objects.get(username=request.user)
-
 @login_required
 def dashboard(request):
     try:
+        # ru = request.user
+        print(request.user, 'ник перед получением объекта и выходом в баланс')
         e = Balance.objects.get(user=request.user)
+        print(123)
         b = e.balance
         print(b)
         print(request.user)
@@ -292,6 +291,15 @@ def InPut_create_view(request, username):
                 comiss2 = round((amounted * 0.01), 2)
                 comiss_end = comiss1 + comiss2
                 amount_end = amounted - comiss_end
+                context = {
+                    "amounted": amounted,
+                    "comiss1": comiss1,
+                    "comiss2": comiss2,
+                    "comiss_end": comiss_end,
+                    "amount_end": amount_end,
+
+                }
+                return redirect('cardcheck', context)
                 #Обновление баланса
                 if n < 5:
                     k = Balance.objects.get(user=us)
@@ -332,13 +340,6 @@ def InPut_create_view(request, username):
     }
     return render(request, "dashboard/InPut_create.html", context)
 
-                                    # rq = User.objects.get(username=request.user)
-                                    #                             k = Balance.objects.get(user=rq)
-                                    #                             o1 = float(k.output) +new_amount
-                                    #                             b2 = float(k.balance) - final_sum
-                                    #                             k.output = o1
-                                    #                             k.balance = b2
-                                    #                             k.save()
 
 # def InPut_create_view(request):
 #     form = InputForm(request.POST or None)
@@ -540,4 +541,3 @@ def landing(request):
 
 
     return render(request, 'landing/landing2.html', context)
-

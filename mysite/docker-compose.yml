@@ -1,12 +1,39 @@
 version: "3"
 
 services:
-  nginx:
-    image: nginx:1.19.0-alpine
+        #  nginx:
+        #    image: nginx:1.19.0-alpine
+        #    volumes:
+        #     - ./nginx-conf.d:/etc/nginx/conf.d/
+        #    ports: 
+        #      - "80:80"
+        #
+  letsencrypt:
+    image: linuxserver/letsencrypt
+    container_name: letsencrypt
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Moscow
+      - URL=g.zbronica.ru
+      - SUBDOMAINS=
+      - VALIDATION=http
+      - DNSPLUGIN=cloudflare #optional
+      - PROPAGATION= #optional
+      - DUCKDNSTOKEN= #optional
+      - EMAIL= #optional
+      - DHLEVEL=2048 #optional
+      - ONLY_SUBDOMAINS=false #optional
+      - EXTRA_DOMAINS= #optional
+      - STAGING=false #optional
     volumes:
-     - ./nginx-conf.d:/etc/nginx/conf.d/
-    ports: 
-      - "80:80"
+      - ./internet-config:/config
+    ports:
+      - 443:443
+      - 80:80 #optional
+    restart: unless-stopped
   mysite:
     build: .
     image: diplom

@@ -1,0 +1,36 @@
+{% extends "dashboard/base.html" %}
+
+{% block content %}
+<body class="container">
+<form method="POST" action="create/">
+        {% csrf_token %}
+        <p>
+            <label>Введите имя</label><br>
+            <input type="text" name="user" />
+        </p>
+        <input type="submit" value="Сохранить" >
+    </form>
+    {% if bal.count > 0 %}
+    <h2>Список пользователей</h2>
+    <table class="table">
+        <tr><th>Id</th><th>Имя</th><th>Введенные</th><th>Выведенные</th><th>Баланс</th><th>Курс</th></tr>
+        {% for trunk in bal %}
+        <tr>
+            <td>{{ trunk.id }}</td>
+            <td>{{ trunk.user }}</td>
+            <td>{{ trunk.input }}</td>
+            <td>{{ trunk.output }}</td>
+            <td>{{trunk.balance}}</td>
+            <td>{{ trunk.currency }}</td>
+
+            <td><a href="edit/{{trunk.id}}">Изменить</a> | <a href="delete/{{trunk.id}}">Удалить</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+    {% endif %}
+{% for massages in InPut %}
+
+{% endfor %}
+{% endblock %}
+

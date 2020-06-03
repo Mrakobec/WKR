@@ -15,9 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from dashboard import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('dashboard/', include('dashboard.urls')),
-    path('', include('mainApp.urls'))
+    path('', views.home, name="home"),
+    path('', include('social_django.urls')),
+    path('logout/', views.logoutuser, name='logoutuser'),
+    path('r/test', views.payin, name='payin'),
+    path('r/<str:username>/', views.InPut_create_view, name='inpustcreate'),
+    path('landing', views.landing, name='landing')
 ]

@@ -30,6 +30,7 @@ services:
       - STAGING=false #optional
     volumes:
       - ./internet-config:/config
+      - ./dashboard/static:/var/www/mysite/static
     ports:
       - 443:443
       - 80:80 #optional

@@ -109,7 +109,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
@@ -137,3 +137,4 @@ SOCIAL_AUTH_VK_OAUTH2_SECRET = 'iP7pmgZfz428D4DTdbCH'
 LOGIN_REDIRECT_URL = '/dashboard/'
 
 LOGIN_URL = '/'
+

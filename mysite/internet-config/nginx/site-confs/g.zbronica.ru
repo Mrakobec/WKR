@@ -8,7 +8,7 @@ server {
 	server_name g.zbronica.ru;
 
 	location /phpliteadmin.php {
-		auth_basic “Administrator’s Area”;
+		auth_basic "Management password";
 		auth_basic_user_file htpasswd;
 		proxy_pass http://phpliteadmin:2015;
 	}

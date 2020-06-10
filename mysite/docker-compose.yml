@@ -43,5 +43,9 @@ services:
     restart: unless-stopped
     volumes:
       - .:/usr/src/app
-
+  phpliteadmin:
+    image: acttaiwan/phpliteadmin
+    restart: unless-stopped
+    volumes:
+      - ./:/db
 

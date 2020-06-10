@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'v=7%xx@v57f-rfuy1l7_+5*3b27x*#t7=v-+hwdase*=p8^ol)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 # ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]']
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'mysite', 'g.zbronica.ru']
@@ -137,4 +137,3 @@ SOCIAL_AUTH_VK_OAUTH2_SECRET = 'iP7pmgZfz428D4DTdbCH'
 LOGIN_REDIRECT_URL = '/dashboard/'
 
 LOGIN_URL = '/'
-

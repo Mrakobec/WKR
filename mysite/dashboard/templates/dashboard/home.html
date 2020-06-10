@@ -1,5 +1,5 @@
 {% load static %}
-<head>
+<!--head>
 <style>
 .text {
 text-align: center;
@@ -10,8 +10,35 @@ text-align: center;
 <div class="text">
 <h1>Для входа воспользуйтесь сервисом VK</h1>
 <h2>Либо, если Вы уже вошли, перейдите на главную страницу кабинета</h2>
-<h3><a href="{% url 'dashboard' %}">Перейти на главную</a></h3>
-<h3><a href="/login/vk-oauth2"><img src="{% static 'dashboard/vk.png' %}" width=50px data-toggle="tooltip" title="Login via VKontakte"></a></h3>
+
     </div>
 </body>
-<!--{{ user.username }}-->
+<{{ user.username }}-->
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static 'dashboard/style_index.css' %}">
+    <title>Evolve</title>
+  </head>
+  <body style="background-image: url({% static 'dashboard/wallpaper.jpg' %});">
+    <h3><a href="{% url 'dashboard' %}">Перейти на главную</a></h3>
+    <h3><a href="/login/vk-oauth2"><img src="{% static 'dashboard/vk.png' %}" width=50px data-toggle="tooltip" title="Login via VKontakte"></a></h3>
+
+
+    <div class="container">
+      <div class="circle"></div>
+
+      <p id="text"></p>
+
+      <div class="pointer-container">
+        <div class="pointer"></div>
+      </div>
+
+      <div class="gradient-circle"></div>
+    </div>
+
+    <script src="{% static 'dashboard/script_index.js' %}"></script>
+  </body>
+</html>

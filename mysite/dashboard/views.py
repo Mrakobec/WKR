@@ -11,16 +11,7 @@ import time
 
 def home(request):
     return render(request, 'dashboard/home.html')
-# def balanceonforms(request):
-#     e = Balance.objects.get(user=request.user)
-#     b = e.balance
-#     print(b)
-#     print(request.user)
-#     return render(request, '', {"b": b})
 
-# def base(request):
-#
-#     return (request, 'dashboard/.html', {"b":b})
 
 @login_required
 def dashboard(request):
@@ -193,79 +184,13 @@ def logoutuser(request):
     else:
         return render(request, 'dashboard/logout.html')
 
-# def payin(request):
-#     return render(request, 'dashboard/r.html')
-# def users(request):
-#     people = User.objects.all()
-#     return render(request, 'dashboard/users.html', {"people": people})
-#
-# def userscreate(request):
-#     if request.method == "POST":
-#         tom = User()
-#         tom.username = request.POST.get("nickname")
-#         tom.save()
-#     return HttpResponseRedirect("/dashboard/users/")
-# # изменение данных в бд
-# def usersedit(request, id):
-#     try:
-#         person = User.objects.get(id=id)
-#
-#         if request.method == "POST":
-#             person.username = request.POST.get("name")
-#             person.save()
-#             return HttpResponseRedirect("/dashboard/users/")
-#         else:
-#             return render(request, "dashboard/usersedit.html", {"person": person})
-#     except User.DoesNotExist:
-#         return HttpResponseNotFound("<h2>Person not found</h2>")
-#
-#
-# # удаление данных из бд
-# def usersdelete(request, id):
-#     try:
-#         person = User.objects.get(id=id)
-#         person.delete()
-#         return HttpResponseRedirect("/dashboard/users/")
-#     except User.DoesNotExist:
-#         return HttpResponseNotFound("<h2>Person not found</h2>")
+
 
 def input(request):
     pay = InPut.objects.all()
     return render(request, 'dashboard/input.html', {"pay": pay})
 
-# def inputcreate(request):
-#     # try:
-#     #     tom = User.objects.get(id=id)
-#
-#     if request.method == "POST":
-#         tom = InPut()
-#         tom.user = request.POST.get("user")
-#         tom.date = time.ctime
-#         tom.name = request.POST.get("name")
-#         tom.amount = request.POST.get("amount")
-#         tom.currency = 1
-#
-#         amounted = float(tom.amount)
-#         comiss1 = round((amounted * 0.05), 2)
-#         comiss2 = round((amounted * 0.01), 2)
-#         comiss_end = comiss1 + comiss2
-#         amount_end = amounted - comiss_end
-#         print(amounted)
-#         print(comiss1)
-#         print(comiss2)
-#         print(amount_end)
-#         tom.comiss1 = comiss1
-#         tom.comiss2 = comiss2
-#         tom.comiss_end = comiss_end
-#         tom.amount_end = amount_end
-#
-#         # tom.comiss1 = tom.amount*0.05
-#         # tom.comiss2 = tom.amount*0.01
-#         # tom.amount_end = tom.amount - tom.comiss1 - tom.comiss2
-#         tom.text = request.POST.get("text")
-#         tom.status = 1
-#         tom.save()
-#     return HttpResponseRedirect("/dashboard/input/")
+
 
 def InPut_create_view(request, username):
     my_form = InputForm(request.POST or None)
@@ -344,6 +269,84 @@ def InPut_create_view(request, username):
     }
     return render(request, "dashboard/InPut_create.html", context)
 
+# def balanceonforms(request):
+#     e = Balance.objects.get(user=request.user)
+#     b = e.balance
+#     print(b)
+#     print(request.user)
+#     return render(request, '', {"b": b})
+
+# def base(request):
+#
+#     return (request, 'dashboard/.html', {"b":b})
+# def payin(request):
+#     return render(request, 'dashboard/r.html')
+# def users(request):
+#     people = User.objects.all()
+#     return render(request, 'dashboard/users.html', {"people": people})
+#
+# def userscreate(request):
+#     if request.method == "POST":
+#         tom = User()
+#         tom.username = request.POST.get("nickname")
+#         tom.save()
+#     return HttpResponseRedirect("/dashboard/users/")
+# # изменение данных в бд
+# def usersedit(request, id):
+#     try:
+#         person = User.objects.get(id=id)
+#
+#         if request.method == "POST":
+#             person.username = request.POST.get("name")
+#             person.save()
+#             return HttpResponseRedirect("/dashboard/users/")
+#         else:
+#             return render(request, "dashboard/usersedit.html", {"person": person})
+#     except User.DoesNotExist:
+#         return HttpResponseNotFound("<h2>Person not found</h2>")
+#
+#
+# # удаление данных из бд
+# def usersdelete(request, id):
+#     try:
+#         person = User.objects.get(id=id)
+#         person.delete()
+#         return HttpResponseRedirect("/dashboard/users/")
+#     except User.DoesNotExist:
+#         return HttpResponseNotFound("<h2>Person not found</h2>")
+# def inputcreate(request):
+#     # try:
+#     #     tom = User.objects.get(id=id)
+#
+#     if request.method == "POST":
+#         tom = InPut()
+#         tom.user = request.POST.get("user")
+#         tom.date = time.ctime
+#         tom.name = request.POST.get("name")
+#         tom.amount = request.POST.get("amount")
+#         tom.currency = 1
+#
+#         amounted = float(tom.amount)
+#         comiss1 = round((amounted * 0.05), 2)
+#         comiss2 = round((amounted * 0.01), 2)
+#         comiss_end = comiss1 + comiss2
+#         amount_end = amounted - comiss_end
+#         print(amounted)
+#         print(comiss1)
+#         print(comiss2)
+#         print(amount_end)
+#         tom.comiss1 = comiss1
+#         tom.comiss2 = comiss2
+#         tom.comiss_end = comiss_end
+#         tom.amount_end = amount_end
+#
+#         # tom.comiss1 = tom.amount*0.05
+#         # tom.comiss2 = tom.amount*0.01
+#         # tom.amount_end = tom.amount - tom.comiss1 - tom.comiss2
+#         tom.text = request.POST.get("text")
+#         tom.status = 1
+#         tom.save()
+#     return HttpResponseRedirect("/dashboard/input/")
 
 # def InPut_create_view(request):
 #     form = InputForm(request.POST or None)

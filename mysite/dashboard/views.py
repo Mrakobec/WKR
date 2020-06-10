@@ -12,6 +12,25 @@ import time
 def home(request):
     return render(request, 'dashboard/home.html')
 
+def thanks(request,c):
+    # us = get_object_or_404(User, username=username)
+    username = str(c['us'])
+    print(username)
+    context = {
+        'username': username,
+    }
+    return render(request, 'bank/thanks.html', context)
+
+def bank(request, username):
+    us = get_object_or_404(User, username=username)
+    if request.method == "POST":
+        # # number = request.Post.get('number')
+        c = {
+            "us": us,
+        }
+        # print(number)
+        return thanks(request, c)
+    return render(request, 'bank/bank.html')
 
 @login_required
 def dashboard(request):
@@ -220,15 +239,6 @@ def InPut_create_view(request, username):
                 comiss2 = round((amounted * 0.01), 2)
                 comiss_end = comiss1 + comiss2
                 amount_end = amounted - comiss_end
-                context = {
-                    "amounted": amounted,
-                    "comiss1": comiss1,
-                    "comiss2": comiss2,
-                    "comiss_end": comiss_end,
-                    "amount_end": amount_end,
-
-                }
-                return redirect('cardcheck', context)
                 #Обновление баланса
                 if n < 5:
                     k = Balance.objects.get(user=us)
@@ -260,7 +270,7 @@ def InPut_create_view(request, username):
 
             my_form = InputForm()
             # print(request)
-        return redirect('myMessages')
+        return redirect('bank', username)
 
             # save article to db
     context = {
@@ -279,8 +289,6 @@ def InPut_create_view(request, username):
 # def base(request):
 #
 #     return (request, 'dashboard/.html', {"b":b})
-# def payin(request):
-#     return render(request, 'dashboard/r.html')
 # def users(request):
 #     people = User.objects.all()
 #     return render(request, 'dashboard/users.html', {"people": people})

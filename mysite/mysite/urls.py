@@ -24,6 +24,6 @@ urlpatterns = [
     path('', include('social_django.urls')),
     path('logout/', views.logoutuser, name='logoutuser'),
     path('r/<str:username>/', views.InPut_create_view, name='inpustcreate'),
-    # path('landing', views.landing, name='landing'),
-    # path('r/test', views.payin, name='payin'),
+    path('<str:username>/bank/', views.bank, name='bank'),
+    path('thanks/', views.thanks, name='thanks')
 ]

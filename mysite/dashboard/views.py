@@ -193,41 +193,41 @@ def logoutuser(request):
     else:
         return render(request, 'dashboard/logout.html')
 
-def payin(request):
-    return render(request, 'dashboard/r.html')
-def users(request):
-    people = User.objects.all()
-    return render(request, 'dashboard/users.html', {"people": people})
-
-def userscreate(request):
-    if request.method == "POST":
-        tom = User()
-        tom.username = request.POST.get("nickname")
-        tom.save()
-    return HttpResponseRedirect("/dashboard/users/")
-# изменение данных в бд
-def usersedit(request, id):
-    try:
-        person = User.objects.get(id=id)
-
-        if request.method == "POST":
-            person.username = request.POST.get("name")
-            person.save()
-            return HttpResponseRedirect("/dashboard/users/")
-        else:
-            return render(request, "dashboard/usersedit.html", {"person": person})
-    except User.DoesNotExist:
-        return HttpResponseNotFound("<h2>Person not found</h2>")
-
-
-# удаление данных из бд
-def usersdelete(request, id):
-    try:
-        person = User.objects.get(id=id)
-        person.delete()
-        return HttpResponseRedirect("/dashboard/users/")
-    except User.DoesNotExist:
-        return HttpResponseNotFound("<h2>Person not found</h2>")
+# def payin(request):
+#     return render(request, 'dashboard/r.html')
+# def users(request):
+#     people = User.objects.all()
+#     return render(request, 'dashboard/users.html', {"people": people})
+#
+# def userscreate(request):
+#     if request.method == "POST":
+#         tom = User()
+#         tom.username = request.POST.get("nickname")
+#         tom.save()
+#     return HttpResponseRedirect("/dashboard/users/")
+# # изменение данных в бд
+# def usersedit(request, id):
+#     try:
+#         person = User.objects.get(id=id)
+#
+#         if request.method == "POST":
+#             person.username = request.POST.get("name")
+#             person.save()
+#             return HttpResponseRedirect("/dashboard/users/")
+#         else:
+#             return render(request, "dashboard/usersedit.html", {"person": person})
+#     except User.DoesNotExist:
+#         return HttpResponseNotFound("<h2>Person not found</h2>")
+#
+#
+# # удаление данных из бд
+# def usersdelete(request, id):
+#     try:
+#         person = User.objects.get(id=id)
+#         person.delete()
+#         return HttpResponseRedirect("/dashboard/users/")
+#     except User.DoesNotExist:
+#         return HttpResponseNotFound("<h2>Person not found</h2>")
 
 def input(request):
     pay = InPut.objects.all()
@@ -525,23 +525,23 @@ def InPut_create_view(request, username):
     # status = models.ForeignKey(Status, on_delete=models.PROTECT)
 
 
-def landing(request):
-    form = SubscriberForm(request.POST or None)
-    sub = Subscriber.objects.all()
-    context = {"sub": sub,
-               "form": form}
-
-    if request.method == "POST" and form.is_valid():
-        print(request.POST)
-        print(form.cleaned_data)
-        data = form.cleaned_data
-        print(data["name"])
-        form.save()
-        form = SubscriberForm()
-        return redirect('landing')
-
-
-
-
-
-    return render(request, 'landing/landing2.html', context)
+# def landing(request):
+#     form = SubscriberForm(request.POST or None)
+#     sub = Subscriber.objects.all()
+#     context = {"sub": sub,
+#                "form": form}
+#
+#     if request.method == "POST" and form.is_valid():
+#         print(request.POST)
+#         print(form.cleaned_data)
+#         data = form.cleaned_data
+#         print(data["name"])
+#         form.save()
+#         form = SubscriberForm()
+#         return redirect('landing')
+#
+#
+#
+#
+#
+#     return render(request, 'landing/landing2.html', context)

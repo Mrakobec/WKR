@@ -41,7 +41,7 @@ class InPut(models.Model):
     comiss2 = models.DecimalField(decimal_places=2, max_digits=10)
     comiss_end = models.DecimalField(decimal_places=2, max_digits=10)
     amount_end = models.DecimalField(decimal_places=2, max_digits=10)
-    text = models.CharField(max_length=250)
+    text = models.CharField(max_length=250, blank=True)
     status = models.ForeignKey(Status, on_delete=models.PROTECT)
     # def __str__(self):
     #     return (self.name)

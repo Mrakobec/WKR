@@ -79,10 +79,20 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite5'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postresql',
+        'USER': 'some-postgres',
+        'PASSWORD': 'naichie2Zau6bu7',
+        'HOST': 'postresql',
+        'PORT': '5432',
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite5'),
+#     }
+# }
 
 
 # Password validation

@@ -43,9 +43,15 @@ services:
     restart: unless-stopped
     volumes:
       - .:/usr/src/app
-  phpliteadmin:
-    image: acttaiwan/phpliteadmin
+#  phpliteadmin:
+#    image: acttaiwan/phpliteadmin
+#    restart: unless-stopped
+#    volumes:
+#      - ./:/db
+  postresql:
+    image: postgres:12.3
+    environment:
+      - POSTGRES_PASSWORD=naichie2Zau6bu7
     restart: unless-stopped
-    volumes:
-      - ./:/db
+
 

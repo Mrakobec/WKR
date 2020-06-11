@@ -132,7 +132,7 @@ def myPayouts(request):
                         n = random.randint(1, 9)
                         status1 = Status.objects.get(pk=1)
                         status2 = Status.objects.get(pk=2)
-                        if n >= 5:
+                        if n >= 7:
                             status = status1
                         else:
                             status = status2
@@ -144,7 +144,7 @@ def myPayouts(request):
                         instance.status = status
                         instance.amount_end = new_amount
                         instance.currency = Currency.objects.get(pk=1)
-                        if n < 5:
+                        if n < 7:
                             rq = User.objects.get(username=request.user)
                             k = Balance.objects.get(user=rq)
                             o1 = float(k.output) + new_amount
@@ -227,7 +227,7 @@ def InPut_create_view(request, username):
                 print(n)
                 status1 = Status.objects.get(pk=1)
                 status2 = Status.objects.get(pk=2)
-                if n >= 5:
+                if n >= 7:
                     #Неуспешно
                     status = status1
                 else:
@@ -240,7 +240,7 @@ def InPut_create_view(request, username):
                 comiss_end = comiss1 + comiss2
                 amount_end = amounted - comiss_end
                 #Обновление баланса
-                if n < 5:
+                if n < 7:
                     k = Balance.objects.get(user=us)
                     o1 = k.output
                     i1 = float(k.input) + amount_end

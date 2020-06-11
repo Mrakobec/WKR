@@ -69,12 +69,21 @@ def dashboard(request):
                 new_user = User.objects.get(username=person.username)
                 print(3)
                 if Balance.objects.all().filter(user=new_user).exists():
+                    print(5)
                     error = "Данный никнейм уже зарегистрирован"
                     context = {
                         "error": error
                     }
                     return render(request, 'dashboard/balanceedit.html', context)
+                else:
+                    print(6)
+                    person.save()
+                    k = User.objects.get(username=person.username)
+                    b1 = Balance(user=k, output=0, input=0, balance=0, currency=Currency(pk=1))
+                    b1.save()
+                    return HttpResponseRedirect('/dashboard/')
             except:
+                print(4)
                 person.save()
                 k = User.objects.get(username=person.username)
                 b1 = Balance(user=k, output=0, input=0, balance=0, currency=Currency(pk=1))

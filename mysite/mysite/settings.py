@@ -77,12 +77,23 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'postgres',
+#         'USER': 'postgres',
+#         'PASSWORD': 'vmsvbs6!',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postresql',
-        'USER': 'some-postgres',
-        'PASSWORD': 'naichie2Zau6bu7',
+        'NAME': 'wkr',
+        'USER': 'diplomuser',
+        'PASSWORD': 'Daejahchoone8Ie',
         'HOST': 'postresql',
         'PORT': '5432',
     }

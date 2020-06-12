@@ -164,13 +164,29 @@ def myPayouts(request):
                         instance.save()
 
                         my_form = OutPutForm()
-                    else:
-                        return HttpResponseNotFound("<h2>На Вашем счёту недостаточно средств</h2>")
-
-
-
+                    # else:
+                    #     error = "Вы ввели сумму меньше или равную 0"
+                    #     context = {
+                    #         "b": b,
+                    #         "out": out,
+                    #         'form': my_form,
+                    #         'error': error
+                    #     }
+                    #     return render(request, 'dashboard/myPayouts.html', context)
                 else:
-                    return HttpResponseNotFound("<h2>Вы ввели сумму меньше 0</h2>")
+                    error = "  Вы ввели сумму меньше или равную 0"
+                    context = {
+                        "b": b,
+                        "out": out,
+                        'form': my_form,
+                        'error': error
+                    }
+                    return render(request, 'dashboard/myPayouts.html', context)
+
+
+
+                # else:
+                #     return HttpResponseNotFound("<h2>Вы ввели сумму меньше или равную 0</h2>")
         return redirect('myPayouts')
 
 
@@ -244,20 +260,28 @@ def InPut_create_view(request, username):
                     status = status2
 
                 amounted = float(my_new_amount)
-                comiss1 = round((amounted * 0.05), 2)
-                comiss2 = round((amounted * 0.01), 2)
-                comiss_end = comiss1 + comiss2
-                amount_end = amounted - comiss_end
-                #Обновление баланса
-                if n < 7:
-                    k = Balance.objects.get(user=us)
-                    o1 = k.output
-                    i1 = float(k.input) + amount_end
-                    b2 = float(k.balance) + amount_end
-                    k.input = i1
-                    k.balance = b2
-                    k.save()
-
+                if amounted > 0:
+                    comiss1 = round((amounted * 0.05), 2)
+                    comiss2 = round((amounted * 0.01), 2)
+                    comiss_end = comiss1 + comiss2
+                    amount_end = amounted - comiss_end
+                    #Обновление баланса
+                    if n < 7:
+                        k = Balance.objects.get(user=us)
+                        o1 = k.output
+                        i1 = float(k.input) + amount_end
+                        b2 = float(k.balance) + amount_end
+                        k.input = i1
+                        k.balance = b2
+                        k.save()
+                else:
+                    error = "Вы ввели сумму меньше или равную 0"
+                    context = {
+                        'error': error,
+                        'form': my_form,
+                        'user': us
+                    }
+                    return render(request, "dashboard/InPut_create.html", context)
                 print(n)
                 print(status)
                 print(my_new_amount)

@@ -34,6 +34,27 @@ class UserForm(forms.ModelForm):
 class InputForm(forms.ModelForm):
     # date = forms.DateTimeField()
     # user = forms.
+    text = forms.CharField(label='', required = False,
+                           widget=forms.Textarea(
+                               attrs={
+                                   "placeholder": "Ваше сообщение",
+                                   "class": "new-class-name two",
+                                   "rows": 8,
+                                   "cols": 60,
+                               }
+                           ))
+    name = forms.CharField(widget=forms.TextInput(
+        attrs={
+            "placeholder": "Ваше имя"
+        }
+    )
+                          )
+    amount = forms.DecimalField(widget=forms.NumberInput(
+        attrs={
+            "placeholder": "Сумма"
+        }
+    ))
+
     class Meta:
         model = InPut
         fields = [
@@ -43,6 +64,11 @@ class InputForm(forms.ModelForm):
             'text',
             # 'status'
         ]
+    # def clean_amount(self):
+    #     amount = self.cleaned_data.get("amount")
+    #     if amount <= 0:
+    #         raise forms.ValidationError("Вы ввели сумму меньше или равную 0")
+    #     return amount
 
 class BalanceForm(forms.ModelForm):
     class Meta:

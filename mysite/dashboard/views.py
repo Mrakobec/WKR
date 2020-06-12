@@ -39,6 +39,7 @@ def dashboard(request):
         print(request.user, 'ник перед получением объекта и выходом в баланс')
         e = Balance.objects.get(user=request.user)
         print(123)
+        print(a)
         b = e.balance
         print(b)
         print(request.user)

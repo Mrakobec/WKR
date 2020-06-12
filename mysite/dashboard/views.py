@@ -289,6 +289,7 @@ def InPut_create_view(request, username):
                 print(comiss2)
                 print(comiss_end)
                 print(amount_end)
+                # print('1')
 
             instance = my_form.save(commit=False)
             instance.user = us

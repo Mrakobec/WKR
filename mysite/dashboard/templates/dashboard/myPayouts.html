@@ -3,7 +3,7 @@
 {% block content %}
 
 
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="">Добавить способ оплаты</button>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="">Осуществить вывод средств</button>
               {% if error %}
                     <div class="form-group row">
             <label class="p-3 col-form-label">{{error}}</label>
@@ -71,7 +71,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">ОТМЕНА</button>
-        <button class="btn btn-primary" type="submit">СОХРАНИТЬ</button>
+        <button class="btn btn-primary" type="submit">ОСУЩЕСТВИТЬ</button>
       </div>
     </div>
   </div>
@@ -141,18 +141,19 @@
    <h2>Выведенные средства:</h2>
     {% if out.count > 0 %}
     <table class="table">
-        <tr><th>Id</th><th>Запросивший</th><th>Получатель</th><th>Дата и время</th><th>Сумма</th><th>Тип валюты</th><th>Способ получения</th><th>Комиссия</th><th>Конечная сумма</th><th>Статус</th></tr>
+        <tr><th>Id</th><th>Получатель</th><th>Сумма</th><th>Тип валюты</th><th>Способ вывода</th><th>Комиссия</th><th>Конечная сумма</th><th>Дата и время</th><th>Статус</th></tr>
         {% for trunk in out %}
         <tr>
             <td>{{ trunk.id }}</td>
-            <td>{{ trunk.user }}</td>
+<!--            <td>{{ trunk.user }}</td>-->
             <td>{{ trunk.recipient }}</td>
-            <td>{{ trunk.date }}</td>
-            <td>{{ trunk.amount }}</td>
+
+            <td>{{ trunk.amount }} </td>
             <td>{{ trunk.currency }}</td>
             <td>{{ trunk.payment_method }}</td>
             <td>{{ trunk.comiss }}</td>
             <td>{{ trunk.amount_end }}</td>
+            <td>{{ trunk.date }}</td>
             <td>{{ trunk.status }}</td>
 
 

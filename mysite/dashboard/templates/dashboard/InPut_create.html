@@ -35,27 +35,43 @@
         <form method="POST">
           {% csrf_token %}
             <div class="form-group row">
-<label class="col-sm-2 col-form-label">Получатель</label>
-                <label class="col-sm-2 col-form-label">{{ user }}</label>
+<label class="col-form-label">Получатель: {{ user }}</label>
+<!--                <label class="col-sm-2 col-form-label">{{ user }}</label>-->
 
 </div>
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Имя</label>
-              {{ form.name }}
+              <label class="col-form-label">{{ form.name }}</label>
+
           </div>
 
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Количество</label>
-            {{ form.amount }}
-            {{ form.currency }}
+
+
+              <label class="col-form-label">{{ form.amount }}{{ form.currency }}</label>
+              <label class="col-sm-4 col-form-label"></label>
+
+
           </div>
+{% if error %}
+                      <div class="form-group row">
+
+                                        <label class="col-sm-4 col-form-label">{{error}}</label>
+              <label class="col-sm-4 col-form-label"></label>
+          </div>
+            {% endif %}
 
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Сообщение</label>
-            {{ form.text }}
-          </div>
+                            <label class="col-form-label">{{ form.text }}</label>
 
-          <button type="submit" class="btn btn-primary mb-2 row">Donate</button>
+
+          </div>
+            <div class="form-group row">
+
+
+
+          </div>
+            <label class="col-form-label"><button type="submit" class="btn btn-primary mb-5 row ">Donate</button></label>
+
         </form>
       </div>
 

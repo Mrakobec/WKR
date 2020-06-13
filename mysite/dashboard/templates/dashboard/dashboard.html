@@ -2,20 +2,43 @@
 
 {% block content %}
 <h1>Добро пожаловать в личный кабинет!</h1>
-<br><br><br>
+<br>
 
 <form method="POST">
         {% csrf_token %}
 
 <!--            <label>Введите ник</label><br>-->
-    <h4><label for="basic-url">Ваша страница пожертвований:</label></h4>
+
+    <h4><label for="basic-url">Ваш никнейм:</label></h4>
+    <div class="input-group row p-3">
+
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon4">@</span>
+        </div>
+            <input class="form-control" id="basic-url" aria-describedby="basic-addon3" type= "text" placeholder="Псевдоним" value="{{request.user}}" name="newusername">
+            <input type="submit" class="btn btn-primary " value="Сохранить" >
+
+
+    </div>
+            {% if error %}
+    <div class="alert alert-warning" role="alert">
+        {{error}}
+    </div>
+        {% endif %}
+
     <br>
-    <div class="input-group mb-3">
-  <div class="input-group-prepend">
-    <span class="input-group-text" id="basic-addon3">https://g.zbronica.ru/r/</span>
+    <h4><label for="basic-url">Ваша страница пожертвований:</label> </h4>
+    <span class="input-group-text" id="basic-addon3"><a href="http://g.zbronica.ru/r/{{request.user}}">http://g.zbronica.ru/r/{{request.user}}</a></span>
+
+<!--    <br>-->
+      <div class="form-group row p-3">
+
+<!--        <input class="form-control col-sm-3" type="text" value="http://g.zbronica.ru/r/{{request.user}}" readonly>-->
+
+
   </div>
-<input class="form-control" id="basic-url" aria-describedby="basic-addon3" type= "text" placeholder="Псевдоним" value="{{request.user}}" name="newusername">
-</div>
+
+
 
 <!--    <div class="input-group mb-3">-->
 <!--  <div class="input-group-prepend">-->
@@ -26,11 +49,11 @@
 
 <!--            <input type="text" name="newusername" value="{{person.username}}" />-->
 <!--        </p>-->
-        <input type="submit" class="btn btn- " value="Сохранить" >
+
 </form>
 
-{% if error %}
-{{error}}
-{% endif %}
+<!--{% if error %}-->
+<!--{{error}}-->
+<!--{% endif %}-->
 
 {% endblock %}

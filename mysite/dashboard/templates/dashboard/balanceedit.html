@@ -40,8 +40,10 @@
         <button class="btn btn-primary" type="submit">СОХРАНИТЬ</button>
       </div>
     </form>
-{% if error %}
-{{error}}
-{% endif %}
+            {% if error %}
+    <div class="alert alert-warning" role="alert">
+        {{error}}
+    </div>
+        {% endif %}
 </body>
 </html>

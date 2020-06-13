@@ -164,15 +164,15 @@ def myPayouts(request):
                         instance.save()
 
                         my_form = OutPutForm()
-                    # else:
-                    #     error = "Вы ввели сумму меньше или равную 0"
-                    #     context = {
-                    #         "b": b,
-                    #         "out": out,
-                    #         'form': my_form,
-                    #         'error': error
-                    #     }
-                    #     return render(request, 'dashboard/myPayouts.html', context)
+                    else:
+                        error = "Вы вели сумму превышающую Ваш баланс!"
+                        context = {
+                            "b": b,
+                            "out": out,
+                            'form': my_form,
+                            'error': error
+                        }
+                        return render(request, 'dashboard/myPayouts.html', context)
                 else:
                     error = "  Вы ввели сумму меньше или равную 0"
                     context = {

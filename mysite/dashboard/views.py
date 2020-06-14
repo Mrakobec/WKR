@@ -250,8 +250,72 @@ def OutPutFilter(request, fpk):
     elif fpk == 4:
         now = datetime.now() - timedelta(minutes=60 * 24 * 365)
         out = out.filter(user=request.user, date__gte=now).order_by('-date')
+    my_form = OutPutForm(request.POST or None)
+    if my_form.is_valid():
+        if request.method == "POST":
+            my_new_amount = request.POST.get('amount')
+            comiss = float(my_new_amount) * 0.02
+            new_amount = float(my_new_amount) - comiss
+            final_sum = float(my_new_amount)
+            if final_sum != None:
+                # print(new_amount)
+                # print(final_sum)
+                if new_amount > 0:
+                    if final_sum <= b:
+                        print(new_amount)
+                        n = random.randint(1, 9)
+                        status1 = Status.objects.get(pk=1)
+                        status2 = Status.objects.get(pk=2)
+                        if n >= 7:
+                            status = status1
+                        else:
+                            status = status2
+                        user = request.user
+                        # print(user)
+                        instance = my_form.save(commit=False)
+                        instance.user = user
+                        instance.comiss = comiss
+                        instance.status = status
+                        instance.amount_end = new_amount
+                        instance.currency = Currency.objects.get(pk=1)
+                        if n < 7:
+                            rq = User.objects.get(username=request.user)
+                            k = Balance.objects.get(user=rq)
+                            o1 = float(k.output) + new_amount
+                            b2 = float(k.balance) - final_sum
+                            k.output = o1
+                            k.balance = b2
+                            k.save()
+                        instance.save()
+
+                        my_form = OutPutForm()
+                    else:
+                        error = "Вы вели сумму превышающую Ваш баланс!"
+                        context = {
+                            "b": b,
+                            "out": out,
+                            'form': my_form,
+                            'error': error
+                        }
+                        return render(request, 'dashboard/myPayouts.html', context)
+                else:
+                    error = "  Вы ввели сумму меньше или равную 0"
+                    context = {
+                        "b": b,
+                        "out": out,
+                        'form': my_form,
+                        'error': error
+                    }
+                    return render(request, 'dashboard/myPayouts.html', context)
+
+
+
+                # else:
+                #     return HttpResponseNotFound("<h2>Вы ввели сумму меньше или равную 0</h2>")
+        return redirect('myPayouts')
     context ={
         'out': out,
+        'form': my_form,
         'b': b,
     }
     return render(request, 'dashboard/myPayouts.html', context)

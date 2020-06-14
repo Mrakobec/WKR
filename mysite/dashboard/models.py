@@ -43,8 +43,8 @@ class InPut(models.Model):
     amount_end = models.DecimalField(decimal_places=2, max_digits=10)
     text = models.CharField(max_length=250, blank=True)
     status = models.ForeignKey(Status, on_delete=models.PROTECT)
-    # def __str__(self):
-    #     return (self.name)
+    def __int__(self):
+        return (self.id)
 
 
 

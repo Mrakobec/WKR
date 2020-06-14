@@ -34,7 +34,7 @@ class UserForm(forms.ModelForm):
 class InputForm(forms.ModelForm):
     # date = forms.DateTimeField()
     # user = forms.
-    text = forms.CharField(label='', required = False, max_length=255,
+    text = forms.CharField(label='', required = False, max_length=250,
                            widget=forms.Textarea(
                                attrs={
                                    "placeholder": "Ваше сообщение",

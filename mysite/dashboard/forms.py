@@ -43,7 +43,7 @@ class InputForm(forms.ModelForm):
                                    "cols": 60,
                                }
                            ))
-    name = forms.CharField(widget=forms.TextInput(
+    name = forms.CharField(max_length=20, widget=forms.TextInput(
         attrs={
             "placeholder": "Ваше имя"
         }

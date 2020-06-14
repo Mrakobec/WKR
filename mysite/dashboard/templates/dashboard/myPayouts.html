@@ -4,9 +4,11 @@
 
 
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="">Осуществить вывод средств</button>
+<label></label>
+
             {% if error %}
     <div class="alert alert-warning" role="alert">
-        {{error}}
+        Что-то пошло не так, повторите попытку.
     </div>
         {% endif %}
 <!--              {% if error %}-->
@@ -57,6 +59,11 @@
             <label class="col-sm-8 col-form-label">{{ form.amount }}</label>
 
           </div>
+                      {% if error %}
+    <div class="alert alert-danger" role="alert">
+        {{error}}
+    </div>
+        {% endif %}
 
           <div class="form-group row">
             <label class="col-sm-3 col-form-label">ID получателя</label>

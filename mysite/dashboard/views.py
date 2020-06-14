@@ -12,10 +12,6 @@ from datetime import datetime, timedelta
 from django.db.models import Sum
 
 
-
-
-
-
 def home(request):
     return render(request, 'dashboard/home.html')
 
@@ -307,7 +303,7 @@ def OutPutFilter(request, fpk):
                             k.balance = b2
                             k.save()
                         instance.save()
-                        
+
 
                         my_form = OutPutForm()
                     else:

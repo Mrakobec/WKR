@@ -1,6 +1,7 @@
 from django.contrib import admin
 #from .models import Transaction, Balance
-from .models import InPut, Currency,Status, Balance, OutPut, Payment_Method, Subscriber
+from django.contrib.auth.models import User
+from .models import *
 
 #admin.site.register(Payments)
 # admin.site.register(Transaction)
@@ -19,8 +20,7 @@ class InPutAdmin(admin.ModelAdmin):
                     'amount_end',
                     'text',
                     'status')
-    search_fields = ('id',
-                     'name',)
+    search_fields = ['user__username', 'id', 'name']
     pass
 class BalanceAdmin(admin.ModelAdmin):
     list_display = ('id',
@@ -29,6 +29,7 @@ class BalanceAdmin(admin.ModelAdmin):
                     'output',
                     'balance',
                     'currency')
+    search_fields = ['user__username', 'id']
     pass
 class OutPutAdmin(admin.ModelAdmin):
     list_display = ('id',
@@ -41,13 +42,30 @@ class OutPutAdmin(admin.ModelAdmin):
                     'comiss',
                     'amount_end',
                     'status')
+    search_fields = ['user__username', 'id', 'recipient']
     pass
+class CurrencyAdmin(admin.ModelAdmin):
+    list_display = ('id',
+                    'name')
+    search_fields = ['name', 'id']
+    pass
+class Payment_MethodAdmin(admin.ModelAdmin):
+    list_display = ('id',
+                    'name')
+    search_fields = ['name', 'id']
+    pass
+class StatusAdmin(admin.ModelAdmin):
+    list_display = ('id',
+                    'name')
+    search_fields = ['name', 'id']
+    pass
+
 admin.site.register(InPut, InPutAdmin)
 admin.site.register(OutPut, OutPutAdmin)
 admin.site.register(Balance, BalanceAdmin)
-admin.site.register(Currency)
-admin.site.register(Status)
-admin.site.register(Payment_Method)
+admin.site.register(Currency, CurrencyAdmin)
+admin.site.register(Status, StatusAdmin)
+admin.site.register(Payment_Method, Payment_MethodAdmin)
 
 
 admin.site.site_header = 'Admin panel'

@@ -78,14 +78,14 @@
 <table class="table table-striped">
     <thead>
     <tr>
-        <th scope="col">#</th>
-        <th scope="col">Имя пользователя</th>
-        <th scope="col">Cумма</th>
-        <th scope="col">Валюта</th>
-        <th scope="col">Комиссия</th>
+        <th class="id" scope="col" >#</th>
+        <th class="name" scope="col">Имя пользователя</th>
+        <th class="amount" scope="col">Cумма</th>
+        <th class="currency" scope="col">Валюта</th>
+        <th class="comiss" scope="col">Комиссия</th>
 <!--        <th scope="col">Конечная сумма</th>-->
-        <th scope="col">Текст</th>
-        <th scope="col">Дата и время</th>
+        <th class="text" >Текст</th>
+        <th class="date" scope="col">Дата и время</th>
 <!--        <th scope="col"></th>-->
     </tr>
     </thead>
@@ -93,14 +93,14 @@
         {% if messages.count > 0 %}
     <tr>
         {% for trunk in messages %}
-        <th scope="row">{{ trunk.id }}</th>
-        <td>{{ trunk.name }}</td>
-        <td>{{ trunk.amount }}</td>
-        <td>{{ trunk.currency }}</td>
-        <td>{{ trunk.comiss_end }}</td>
+        <th class="id" scope="row">{{ trunk.id }}</th>
+        <td class="name">{{ trunk.name }}</td>
+        <td class="amount">{{ trunk.amount }}</td>
+        <td class="currency">{{ trunk.currency }}</td>
+        <td class="comiss">{{ trunk.comiss_end }}</td>
 <!--        <td>{{ trunk.amount_end }}</td>-->
-        <td>{{ trunk.text }}</td>
-        <td>{{ trunk.date|date:"d.m.y" }}{{ trunk.date|time:" H:i:s" }}</td>
+        <td class="text">{{ trunk.text }}</td>
+        <td class="date">{{ trunk.date|date:"d.m.y" }}{{ trunk.date|time:" H:i:s" }}</td>
 
     </tr>
     {% endfor %}

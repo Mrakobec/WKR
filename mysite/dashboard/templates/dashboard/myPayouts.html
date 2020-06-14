@@ -2,6 +2,8 @@
 
 {% block content %}
 
+<!--    <h2>Мои выплаты:  </h2>-->
+<!--<br>-->
 
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="">Осуществить вывод средств</button>
 <label></label>
@@ -91,66 +93,14 @@
 </form>
 <br>
 
-<!--<table class="table">-->
-<!--    <tr>-->
-<!--        <td>№</td>-->
-<!--        <td>Получатель</td>-->
-<!--        <td>Сумма, RUB</td>-->
-<!--        <td>Система</td>-->
-<!--        <td>Дата и время</td>-->
-<!--        <td>Статус</td>-->
-<!--    </tr>-->
-<!--    <tr>-->
-<!--        <td>5</td>-->
-<!--        <td>***</td>-->
-<!--        <td>20</td>-->
-<!--        <td>банковская карта - россия</td>-->
-<!--        <td>20.05.2020 15:05:36</td>-->
-<!--        <td>успешно</td>-->
-<!--    </tr>-->
-<!--    <tr>-->
-<!--        <td>4</td>-->
-<!--        <td>***</td>-->
-<!--        <td>100</td>-->
-<!--        <td>банковская карта - россия</td>-->
-<!--        <td>20.05.2020 14:59:33</td>-->
-<!--        <td>успешно</td>-->
-<!--    </tr>-->
-<!--    <tr>-->
-<!--        <td>3</td>-->
-<!--        <td>11810761</td>-->
-<!--        <td>250</td>-->
-<!--        <td>vk pay</td>-->
-<!--        <td>20.05.2020 14:41:07</td>-->
-<!--        <td>успешно</td>-->
-<!--    </tr>-->
-<!--    <tr>-->
-<!--        <td>2</td>-->
-<!--        <td>11810761</td>-->
-<!--        <td>500</td>-->
-<!--        <td>vk pay</td>-->
-<!--        <td>20.05.2020 14:30:52</td>-->
-<!--        <td>ошибка</td>-->
-<!--    </tr>-->
-<!--    <tr>-->
-<!--        <td>1</td>-->
-<!--        <td>11810761</td>-->
-<!--        <td>3000</td>-->
-<!--        <td>vk pay</td>-->
-<!--        <td>20.05.2020 14:22:21</td>-->
-<!--        <td>ошибка</td>-->
-<!--    </tr>-->
-<!--</table>-->
-<!--<h2> Вывод средств:</h2>-->
-<!--<form action="." method="post">-->
-<!--    {% csrf_token %}-->
-<!--    {{ form.as_p }}-->
-<!--&lt;!&ndash;    <input type="number" name="amount" placeholder="Your amount:">&ndash;&gt;-->
-<!--    <input type="submit" value="Save"/>-->
-<!--</form>-->
 
 
-   <h2>Выведенные средства:</h2>
+
+   <h2>История выплат:</h2>
+    {% if out.count == 0 %}<h6>Найдено 0 выплат на сумму 0 RUB</h6>{% endif %}
+    {% if out.count == 1 %}<h6>Найдена {{ out.count }} выплата на сумму {{ total_sum }} RUB</h6>{% endif %}
+    {% if out.count > 1 %}{% if out.count < 5 %}<h6>Найдено {{ out.count }} выплаты на сумму {{ total_sum }} RUB</h6>{% endif %}{% endif %}
+    {% if out.count > 4 %}<h6>Найдено {{ out.count }} выплат на сумму {{ total_sum }} RUB</h6>{% endif %}
 <div class="dropdown show">
       <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Фильтр по времени:
@@ -164,29 +114,47 @@
         <a class="dropdown-item" href="{% url 'OutPutFilter' fpk=4 %}">За текущий год</a>
       </div>
     </div>
-    {% if out.count > 0 %}
-    <table class="table">
-        <tr><th>Id</th><th>Получатель</th><th>Сумма</th><th>Тип валюты</th><th>Способ вывода</th><th>Комиссия</th><th>Конечная сумма</th><th>Дата и время</th><th>Статус</th></tr>
+<br>
+    <table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Получатель</th>
+        <th scope="col">Cумма</th>
+        <th scope="col">Валюта</th>
+        <th scope="col">Способ вывода</th>
+        <th scope="col">Комиссия</th>
+<!--        <th scope="col">Конечная сумма</th>-->
+        <th scope="col">Дата и время</th>
+        <th scope="col">Статус</th>
+<!--        <th scope="col"></th>-->
+    </tr>
+    </thead>
+    <tbody>
+        {% if out.count > 0 %}
+    <tr>
         {% for trunk in out %}
-        <tr>
-            <td>{{ trunk.id }}</td>
+        <th scope="row">{{ trunk.id }}</th>
 <!--            <td>{{ trunk.user }}</td>-->
             <td>{{ trunk.recipient }}</td>
-
             <td>{{ trunk.amount }} </td>
             <td>{{ trunk.currency }}</td>
             <td>{{ trunk.payment_method }}</td>
             <td>{{ trunk.comiss }}</td>
-            <td>{{ trunk.amount_end }}</td>
-            <td>{{ trunk.date }}</td>
+<!--            <td>{{ trunk.amount_end }}</td>-->
+            <td>{{ trunk.date|date:"d.m.y" }}{{ trunk.date|time:" H:i:s" }}</td>
             <td>{{ trunk.status }}</td>
 
+    </tr>
+    {% endfor %}
+    </tbody>
 
-<!--            <td><a href="edit/{{trunk.id}}">Изменить</a> | <a href="delete/{{trunk.id}}">Удалить</a></td>-->
-        </tr>
-        {% endfor %}
-    </table>
- {% endif %}
+</table>
+{% endif %}
+
+
+
+
 {% for massages in InPut %}
 
 {% endfor %}

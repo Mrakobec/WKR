@@ -9,32 +9,10 @@ from .forms import *
 import random
 import time
 from datetime import datetime, timedelta
+from django.db.models import Sum
 
 
- # Фильтр
-def MessagesFilter(request, fpk):
-    e = Balance.objects.get(user=request.user)
-    b = e.balance
-    s2 = Status.objects.get(pk=2)
-    # print(s2)
-    messages = InPut.objects.all()
-    if fpk == 1:
-        now = datetime.now() - timedelta(minutes=60 * 24)
-        messages = messages.filter(date__gte=now, user=request.user, status=s2).order_by('-date')
-    elif fpk == 2:
-        now = datetime.now() - timedelta(minutes=60 * 24 * 7)
-        messages = messages.filter(date__gte=now, user=request.user, status=s2).order_by('-date')
-    elif fpk == 3:
-        now = datetime.now() - timedelta(minutes=60 * 24 * 30)
-        messages = messages.filter(date__gte=now, user=request.user, status=s2).order_by('-date')
-    elif fpk == 4:
-        now = datetime.now() - timedelta(minutes=60 * 24 * 365)
-        messages = messages.filter(user=request.user, date__gte=now, status=s2).order_by('-date')
-    context ={
-        'messages': messages,
-        'b': b,
-    }
-    return render(request, 'dashboard/myMessages.html', context)
+
 
 
 
@@ -133,14 +111,18 @@ def myMessages(request):
     s2 = Status.objects.get(pk=2)
     pay = InPut.objects.filter(user=request.user, status=s2).order_by('-date')
     e = Balance.objects.get(user=request.user)
+    amount_messages = InPut.objects.filter(user=request.user, status=s2).count()
     b = e.balance
     # print(b)
     # print(request.user)
+    total_sum = InPut.objects.filter(user=request.user, status=s2).aggregate(Sum('amount'))['amount__sum']
     messages = InPut.objects.all()
     messages = messages.filter(user=request.user, status=s2).order_by('-date')
 
     context = {
         'messages': messages,
+        'total_sum': total_sum,
+        'amount_messages': amount_messages,
         "b": b,
     }
     return render(request, 'dashboard/myMessages.html', context)
@@ -154,13 +136,46 @@ def myMessages(request):
 # def mySubs(request):
 #     return render(request, 'dashboard/mySubs.html')
 
+ # Фильтр
+def MessagesFilter(request, fpk):
+    e = Balance.objects.get(user=request.user)
+    b = e.balance
+    s2 = Status.objects.get(pk=2)
+    # print(s2)
+    messages = InPut.objects.all()
+    amount_messages = InPut.objects.filter(user=request.user, status=s2).count()
+    total_sum = InPut.objects.filter(user=request.user, status=s2).aggregate(Sum('amount'))['amount__sum']
+
+
+    if fpk == 1:
+        now = datetime.now() - timedelta(minutes=60 * 24)
+        messages = messages.filter(date__gte=now, user=request.user, status=s2).order_by('-date')
+    elif fpk == 2:
+        now = datetime.now() - timedelta(minutes=60 * 24 * 7)
+        messages = messages.filter(date__gte=now, user=request.user, status=s2).order_by('-date')
+    elif fpk == 3:
+        now = datetime.now() - timedelta(minutes=60 * 24 * 30)
+        messages = messages.filter(date__gte=now, user=request.user, status=s2).order_by('-date')
+    elif fpk == 4:
+        now = datetime.now() - timedelta(minutes=60 * 24 * 365)
+        messages = messages.filter(user=request.user, date__gte=now, status=s2).order_by('-date')
+    context ={
+        'messages': messages,
+        'b': b,
+        'total_sum': total_sum,
+        'amount_messages': amount_messages,
+    }
+    return render(request, 'dashboard/myMessages.html', context)
+
 @login_required
 def myPayouts(request):
+    s2 = Status.objects.get(pk=2)
     out = OutPut.objects.filter(user=request.user).order_by('-date')
     e = Balance.objects.get(user=request.user)
     b = e.balance
     # print(b)
     # print(request.user)
+    total_sum = OutPut.objects.filter(user=request.user, status=s2).aggregate(Sum('amount'))['amount__sum']
 
     my_form = OutPutForm(request.POST or None)
     if my_form.is_valid():
@@ -193,7 +208,7 @@ def myPayouts(request):
                         if n < 7:
                             rq = User.objects.get(username=request.user)
                             k = Balance.objects.get(user=rq)
-                            o1 = float(k.output) + new_amount
+                            o1 = float(k.output) + final_sum
                             b2 = float(k.balance) - final_sum
                             k.output = o1
                             k.balance = b2
@@ -207,7 +222,8 @@ def myPayouts(request):
                             "b": b,
                             "out": out,
                             'form': my_form,
-                            'error': error
+                            'error': error,
+                            'total_sum': total_sum,
                         }
                         return render(request, 'dashboard/myPayouts.html', context)
                 else:
@@ -216,7 +232,8 @@ def myPayouts(request):
                         "b": b,
                         "out": out,
                         'form': my_form,
-                        'error': error
+                        'error': error,
+                        'total_sum': total_sum,
                     }
                     return render(request, 'dashboard/myPayouts.html', context)
 
@@ -230,13 +247,16 @@ def myPayouts(request):
     context = {
         "b": b,
         "out": out,
-        'form': my_form
+        'form': my_form,
+        'total_sum': total_sum,
     }
     return render(request, 'dashboard/myPayouts.html', context)
-
+#Фильтр
 def OutPutFilter(request, fpk):
+    s2 = Status.objects.get(pk=2)
     e = Balance.objects.get(user=request.user)
     b = e.balance
+    total_sum = OutPut.objects.filter(user=request.user, status=s2).aggregate(Sum('amount'))['amount__sum']
     out = OutPut.objects.all()
     if fpk == 1:
         now = datetime.now() - timedelta(minutes=60 * 24)
@@ -295,7 +315,8 @@ def OutPutFilter(request, fpk):
                             "b": b,
                             "out": out,
                             'form': my_form,
-                            'error': error
+                            'error': error,
+                            'total_sum': total_sum,
                         }
                         return render(request, 'dashboard/myPayouts.html', context)
                 else:
@@ -304,7 +325,8 @@ def OutPutFilter(request, fpk):
                         "b": b,
                         "out": out,
                         'form': my_form,
-                        'error': error
+                        'error': error,
+                        'total_sum': total_sum,
                     }
                     return render(request, 'dashboard/myPayouts.html', context)
 
@@ -317,6 +339,7 @@ def OutPutFilter(request, fpk):
         'out': out,
         'form': my_form,
         'b': b,
+        'total_sum': total_sum,
     }
     return render(request, 'dashboard/myPayouts.html', context)
 

@@ -1,5 +1,5 @@
 {% extends "dashboard/base.html" %}
-
+{% load static %}
 {% block content %}
 <!--<table class="table">-->
 <!--    <tr>-->
@@ -45,8 +45,16 @@
 <!--        <td></td>-->
 <!--    </tr>-->
 <!--</table>-->
+
+
+
     <h2>Мои сообщения:</h2>
     <br>
+    {% if messages.count == 0 %}<h6>Найдено 0 сообщений на сумму 0 RUB</h6>{% endif %}
+    {% if messages.count == 1 %}<h6>Найдено {{ amount_messages }} сообщение на сумму {{ total_sum }} RUB</h6>{% endif %}
+    {% if messages.count > 1 %}{% if messages.count < 5 %}<h6>Найдено {{ amount_messages }} сообщения на сумму {{ total_sum }} RUB</h6>{% endif %}{% endif %}
+    {% if messages.count > 4 %}<h6>Найдено {{ amount_messages }} сообщений на сумму {{ total_sum }} RUB</h6>{% endif %}
+
 
 
 
@@ -63,30 +71,46 @@
         <a class="dropdown-item" href="{% url 'MessagesFilter' fpk=4 %}">За текущий год</a>
       </div>
     </div>
-    {% if messages.count > 0 %}
-    <table class="table">
-        <tr><th>Id</th><th>Отправитель</th><th>Сумма</th><th>Тип валюты</th><th>Комиссия</th><th>Конечная сумма</th><th>Текст</th><th>Дата и время</th>
+<br>
+
+
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Имя пользователя</th>
+        <th scope="col">Cумма</th>
+        <th scope="col">Валюта</th>
+        <th scope="col">Комиссия</th>
+<!--        <th scope="col">Конечная сумма</th>-->
+        <th scope="col">Текст</th>
+        <th scope="col">Дата и время</th>
+<!--        <th scope="col"></th>-->
+    </tr>
+    </thead>
+    <tbody>
+        {% if messages.count > 0 %}
+    <tr>
         {% for trunk in messages %}
-        <tr>
-            <td>{{ trunk.id }}</td>
-<!--            <td>{{ trunk.user }}</td>-->
+        <th scope="row">{{ trunk.id }}</th>
+        <td>{{ trunk.name }}</td>
+        <td>{{ trunk.amount }}</td>
+        <td>{{ trunk.currency }}</td>
+        <td>{{ trunk.comiss_end }}</td>
+<!--        <td>{{ trunk.amount_end }}</td>-->
+        <td>{{ trunk.text }}</td>
+        <td>{{ trunk.date|date:"d.m.y" }}{{ trunk.date|time:" H:i:s" }}</td>
 
-            <td>{{ trunk.name }}</td>
-            <td>{{ trunk.amount }}</td>
-            <td>{{ trunk.currency }}</td>
-<!--            <td>{{ trunk.comiss1 }}</td>-->
-<!--            <td>{{ trunk.comiss2 }}</td>-->
-            <td>{{ trunk.comiss_end }}</td>
-            <td>{{ trunk.amount_end }}</td>
-            <td>{{ trunk.text }}</td>
-            <td>{{ trunk.date }}</td>
-<!--            <td>{{ trunk.status }}</td>-->
+    </tr>
+    {% endfor %}
+    </tbody>
 
-<!--            <td><a href="edit/{{trunk.id}}">Изменить</a> | <a href="delete/{{trunk.id}}">Удалить</a></td>-->
-        </tr>
-        {% endfor %}
-    </table>
- {% endif %}
+</table>
+{% endif %}
+
+
+
 {% for massages in InPut %}
 
 {% endfor %}

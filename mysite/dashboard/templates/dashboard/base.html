@@ -35,7 +35,11 @@
                     ГЛАВНАЯ
                 </a>
               </li>
+
               <li {% if request.path == '/dashboard/messages/' or request.path == '/dashboard/messages/1/' or request.path == '/dashboard/messages/2/' or request.path == '/dashboard/messages/3/' or request.path == '/dashboard/messages/4/' %} class="active"{% endif %}>
+<!--              <li {% if request.path == '/dashboard/messages/' %} class="active"{% endif %}>-->
+
+
                 <a href="{% url 'myMessages' %}">
                     <i class="fas fa-copy"></i>
                     МОИ СООБЩЕНИЯ
@@ -43,7 +47,7 @@
                 </a>
 
               </li>
-              <li {% if request.path == '/dashboard/payouts/' %} class="active"{% endif %}>
+              <li {% if request.path == '/dashboard/payouts/' or request.path == '/dashboard/payouts/1/' or request.path == '/dashboard/payouts/2/' or request.path == '/dashboard/payouts/3/' or request.path == '/dashboard/payouts/4/' %} class="active"{% endif %}>
                 <a href="{% url 'myPayouts' %}">
                     <i class="fas fa-briefcase"></i>
                     МОИ ВЫПЛАТЫ

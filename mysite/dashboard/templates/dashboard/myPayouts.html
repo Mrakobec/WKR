@@ -90,7 +90,7 @@
 </div>
 </form>
 <br>
-<br>
+
 <!--<table class="table">-->
 <!--    <tr>-->
 <!--        <td>№</td>-->
@@ -149,6 +149,8 @@
 <!--    <input type="submit" value="Save"/>-->
 <!--</form>-->
 
+
+   <h2>Выведенные средства:</h2>
 <div class="dropdown show">
       <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Фильтр по времени:
@@ -162,7 +164,6 @@
         <a class="dropdown-item" href="{% url 'OutPutFilter' fpk=4 %}">За текущий год</a>
       </div>
     </div>
-   <h2>Выведенные средства:</h2>
     {% if out.count > 0 %}
     <table class="table">
         <tr><th>Id</th><th>Получатель</th><th>Сумма</th><th>Тип валюты</th><th>Способ вывода</th><th>Комиссия</th><th>Конечная сумма</th><th>Дата и время</th><th>Статус</th></tr>

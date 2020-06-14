@@ -307,6 +307,7 @@ def OutPutFilter(request, fpk):
                             k.balance = b2
                             k.save()
                         instance.save()
+                        
 
                         my_form = OutPutForm()
                     else:

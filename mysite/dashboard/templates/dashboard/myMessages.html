@@ -51,9 +51,9 @@
     <h2>Мои сообщения:</h2>
     <br>
     {% if messages.count == 0 %}<h6>Найдено 0 сообщений на сумму 0 RUB</h6>{% endif %}
-    {% if messages.count == 1 %}<h6>Найдено {{ amount_messages }} сообщение на сумму {{ total_sum }} RUB</h6>{% endif %}
-    {% if messages.count > 1 %}{% if messages.count < 5 %}<h6>Найдено {{ amount_messages }} сообщения на сумму {{ total_sum }} RUB</h6>{% endif %}{% endif %}
-    {% if messages.count > 4 %}<h6>Найдено {{ amount_messages }} сообщений на сумму {{ total_sum }} RUB</h6>{% endif %}
+    {% if total_sum != 0 %}{% if messages.count == 1 %}<h6>Найдено {{ amount_messages }} сообщение на сумму {{ total_sum }} RUB</h6>{% endif %}{% endif %}
+    {% if total_sum != 0 %}{% if messages.count > 1 %}{% if messages.count < 5 %}<h6>Найдено {{ amount_messages }} сообщения на сумму {{ total_sum }} RUB</h6>{% endif %}{% endif %}{% endif %}
+    {% if total_sum != 0 %}{% if messages.count > 4 %}<h6>Найдено {{ amount_messages }} сообщений на сумму {{ total_sum }} RUB</h6>{% endif %}{% endif %}
 
 
 

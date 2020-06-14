@@ -8,6 +8,35 @@ from django.http import HttpResponseNotFound
 from .forms import *
 import random
 import time
+from datetime import datetime, timedelta
+
+
+ # Фильтр
+def MessagesFilter(request, fpk):
+    e = Balance.objects.get(user=request.user)
+    b = e.balance
+    s2 = Status.objects.get(pk=2)
+    print(s2)
+    messages = InPut.objects.all()
+    if fpk == 1:
+        now = datetime.now() - timedelta(minutes=60 * 24)
+        messages = messages.filter(date__gte=now, user=request.user, status=s2).order_by('-date')
+    elif fpk == 2:
+        now = datetime.now() - timedelta(minutes=60 * 24 * 7)
+        messages = messages.filter(date__gte=now, user=request.user, status=s2).order_by('-date')
+    elif fpk == 3:
+        now = datetime.now() - timedelta(minutes=60 * 24 * 30)
+        messages = messages.filter(date__gte=now, user=request.user, status=s2).order_by('-date')
+    elif fpk == 4:
+        now = datetime.now() - timedelta(minutes=60 * 24 * 365)
+        messages = messages.filter(user=request.user, date__gte=now, status=s2).order_by('-date')
+    context ={
+        'messages': messages,
+        'b': b,
+    }
+    return render(request, 'dashboard/myMessages.html', context)
+
+
 
 def home(request):
     return render(request, 'dashboard/home.html')
@@ -107,11 +136,19 @@ def myMessages(request):
     b = e.balance
     print(b)
     print(request.user)
+    messages = InPut.objects.all()
+    messages = messages.filter(user=request.user, status=s2).order_by('-date')
+
     context = {
+        'messages': messages,
         "b": b,
-        "pay": pay
     }
     return render(request, 'dashboard/myMessages.html', context)
+    # context = {
+    #     "b": b,
+    #     "messages": pay
+    # }
+    # return render(request, 'dashboard/myMessages.html', context)
 
 # @login_required
 # def mySubs(request):
@@ -194,6 +231,28 @@ def myPayouts(request):
         "b": b,
         "out": out,
         'form': my_form
+    }
+    return render(request, 'dashboard/myPayouts.html', context)
+
+def OutPutFilter(request, fpk):
+    e = Balance.objects.get(user=request.user)
+    b = e.balance
+    out = OutPut.objects.all()
+    if fpk == 1:
+        now = datetime.now() - timedelta(minutes=60 * 24)
+        out = out.filter(date__gte=now, user=request.user).order_by('-date')
+    elif fpk == 2:
+        now = datetime.now() - timedelta(minutes=60 * 24 * 7)
+        out = out.filter(date__gte=now, user=request.user).order_by('-date')
+    elif fpk == 3:
+        now = datetime.now() - timedelta(minutes=60 * 24 * 30)
+        out = out.filter(date__gte=now, user=request.user).order_by('-date')
+    elif fpk == 4:
+        now = datetime.now() - timedelta(minutes=60 * 24 * 365)
+        out = out.filter(user=request.user, date__gte=now).order_by('-date')
+    context ={
+        'out': out,
+        'b': b,
     }
     return render(request, 'dashboard/myPayouts.html', context)
 

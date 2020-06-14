@@ -16,7 +16,7 @@ def MessagesFilter(request, fpk):
     e = Balance.objects.get(user=request.user)
     b = e.balance
     s2 = Status.objects.get(pk=2)
-    print(s2)
+    # print(s2)
     messages = InPut.objects.all()
     if fpk == 1:
         now = datetime.now() - timedelta(minutes=60 * 24)
@@ -44,7 +44,7 @@ def home(request):
 def thanks(request,c):
     # us = get_object_or_404(User, username=username)
     username = str(c['us'])
-    print(username)
+    # print(username)
     context = {
         'username': username,
     }
@@ -65,12 +65,12 @@ def bank(request, username):
 def dashboard(request):
     try:
         # ru = request.user
-        print(request.user, 'ник перед получением объекта и выходом в баланс')
+        # print(request.user, 'ник перед получением объекта и выходом в баланс')
         e = Balance.objects.get(user=request.user)
-        print(123)
+        # print(123)
         b = e.balance
-        print(b)
-        print(request.user)
+        # print(b)
+        # print(request.user)
         person = User.objects.get(username=request.user)
         if request.method == "POST":
             person.username = request.POST.get("newusername")
@@ -90,29 +90,29 @@ def dashboard(request):
     except Balance.DoesNotExist:
         person = User.objects.get(username=request.user)
         # person.username = request.user
-        print(1)
+        # print(1)
         if request.method == "POST":
-            print(2)
+            # print(2)
             person.username = request.POST.get("newusername")
             try:
                 new_user = User.objects.get(username=person.username)
-                print(3)
+                # print(3)
                 if Balance.objects.all().filter(user=new_user).exists():
-                    print(5)
+                    # print(5)
                     error = "Данный никнейм уже зарегистрирован"
                     context = {
                         "error": error
                     }
                     return render(request, 'dashboard/balanceedit.html', context)
                 else:
-                    print(6)
+                    # print(6)
                     person.save()
                     k = User.objects.get(username=person.username)
                     b1 = Balance(user=k, output=0, input=0, balance=0, currency=Currency(pk=1))
                     b1.save()
                     return HttpResponseRedirect('/dashboard/')
             except:
-                print(4)
+                # print(4)
                 person.save()
                 k = User.objects.get(username=person.username)
                 b1 = Balance(user=k, output=0, input=0, balance=0, currency=Currency(pk=1))
@@ -134,8 +134,8 @@ def myMessages(request):
     pay = InPut.objects.filter(user=request.user, status=s2).order_by('-date')
     e = Balance.objects.get(user=request.user)
     b = e.balance
-    print(b)
-    print(request.user)
+    # print(b)
+    # print(request.user)
     messages = InPut.objects.all()
     messages = messages.filter(user=request.user, status=s2).order_by('-date')
 
@@ -159,8 +159,8 @@ def myPayouts(request):
     out = OutPut.objects.filter(user=request.user).order_by('-date')
     e = Balance.objects.get(user=request.user)
     b = e.balance
-    print(b)
-    print(request.user)
+    # print(b)
+    # print(request.user)
 
     my_form = OutPutForm(request.POST or None)
     if my_form.is_valid():
@@ -170,8 +170,8 @@ def myPayouts(request):
             new_amount = float(my_new_amount) - comiss
             final_sum = float(my_new_amount)
             if final_sum != None:
-                print(new_amount)
-                print(final_sum)
+                # print(new_amount)
+                # print(final_sum)
                 if new_amount > 0:
                     if final_sum <= b:
                         print(new_amount)
@@ -183,7 +183,7 @@ def myPayouts(request):
                         else:
                             status = status2
                         user = request.user
-                        print(user)
+                        # print(user)
                         instance = my_form.save(commit=False)
                         instance.user = user
                         instance.comiss = comiss
@@ -261,8 +261,9 @@ def OutPutFilter(request, fpk):
 def support(request):
     e = Balance.objects.get(user=request.user)
     b = e.balance
-    print(b)
-    print(request.user)
+    # print(1)
+    # print(b)
+    # print(request.user)
     context = {
         "b": b
     }
@@ -272,8 +273,8 @@ def support(request):
 def contacts(request):
     e = Balance.objects.get(user=request.user)
     b = e.balance
-    print(b)
-    print(request.user)
+    # print(b)
+    # print(request.user)
     context = {
         "b": b
     }
@@ -304,7 +305,7 @@ def InPut_create_view(request, username):
     if my_form.is_valid():
         if request.method == "POST":
             # us = User.objects.get(username=username)
-            print(us)
+            # print(us)
             my_new_amount = request.POST.get('amount')
             if my_new_amount != None:
                 n = random.randint(1, 9)
@@ -341,18 +342,18 @@ def InPut_create_view(request, username):
                         'user': us
                     }
                     return render(request, "dashboard/InPut_create.html", context)
-                print(n)
-                print(status)
-                print(my_new_amount)
-                print(comiss1)
-                print(comiss2)
-                print(comiss_end)
-                print(amount_end)
+                # print(n)
+                # print(status)
+                # print(my_new_amount)
+                # print(comiss1)
+                # print(comiss2)
+                # print(comiss_end)
+                # print(amount_end)
                 # print('1')
 
             instance = my_form.save(commit=False)
             instance.user = us
-            print(instance.user)
+            # print(instance.user)
             instance.status = status
             instance.comiss1 = comiss1
             instance.comiss2 = comiss2

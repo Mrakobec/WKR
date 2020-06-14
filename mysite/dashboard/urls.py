@@ -10,6 +10,8 @@ urlpatterns = [
     path('support/', views.support, name='support'),
     path('contacts/', views.contacts, name='contacts'),
     path('input/', views.input),
+    path('messages/<int:fpk>/', views.MessagesFilter, name='MessagesFilter'),
+    path('payouts/<int:fpk>/', views.OutPutFilter, name='OutPutFilter'),
     # path('users/', views.users),
     # path('users/create/', views.userscreate),
     # path('users/edit/<int:id>/', views.usersedit),

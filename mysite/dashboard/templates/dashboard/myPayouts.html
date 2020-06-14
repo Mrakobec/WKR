@@ -149,7 +149,19 @@
 <!--    <input type="submit" value="Save"/>-->
 <!--</form>-->
 
+<div class="dropdown show">
+      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Фильтр по времени:
+      </a>
 
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <a class="dropdown-item" href="{% url 'myPayouts' %}">За всё время</a>
+        <a class="dropdown-item" href="{% url 'OutPutFilter' fpk=1 %}">За 24 часа</a>
+        <a class="dropdown-item" href="{% url 'OutPutFilter' fpk=2 %}">За 7 дней</a>
+        <a class="dropdown-item" href="{% url 'OutPutFilter' fpk=3 %}">За 30 дней</a>
+        <a class="dropdown-item" href="{% url 'OutPutFilter' fpk=4 %}">За текущий год</a>
+      </div>
+    </div>
    <h2>Выведенные средства:</h2>
     {% if out.count > 0 %}
     <table class="table">

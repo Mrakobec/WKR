@@ -139,22 +139,30 @@ def MessagesFilter(request, fpk):
     s2 = Status.objects.get(pk=2)
     # print(s2)
     messages = InPut.objects.all()
-    amount_messages = InPut.objects.filter(user=request.user, status=s2).count()
-    total_sum = InPut.objects.filter(user=request.user, status=s2).aggregate(Sum('amount'))['amount__sum']
+    # amount_messages = InPut.objects.filter(user=request.user, status=s2).count()
+    # total_sum = InPut.objects.filter(user=request.user, status=s2).aggregate(Sum('amount'))['amount__sum']
 
 
     if fpk == 1:
         now = datetime.now() - timedelta(minutes=60 * 24)
         messages = messages.filter(date__gte=now, user=request.user, status=s2).order_by('-date')
+        amount_messages = messages.filter(date__gte=now, user=request.user, status=s2).count()
+        total_sum = messages.filter(date__gte=now, user=request.user, status=s2).aggregate(Sum('amount'))['amount__sum']
     elif fpk == 2:
         now = datetime.now() - timedelta(minutes=60 * 24 * 7)
         messages = messages.filter(date__gte=now, user=request.user, status=s2).order_by('-date')
+        amount_messages = messages.filter(date__gte=now, user=request.user, status=s2).count()
+        total_sum = messages.filter(date__gte=now, user=request.user, status=s2).aggregate(Sum('amount'))['amount__sum']
     elif fpk == 3:
         now = datetime.now() - timedelta(minutes=60 * 24 * 30)
         messages = messages.filter(date__gte=now, user=request.user, status=s2).order_by('-date')
+        amount_messages = messages.filter(date__gte=now, user=request.user, status=s2).count()
+        total_sum = messages.filter(date__gte=now, user=request.user, status=s2).aggregate(Sum('amount'))['amount__sum']
     elif fpk == 4:
         now = datetime.now() - timedelta(minutes=60 * 24 * 365)
         messages = messages.filter(user=request.user, date__gte=now, status=s2).order_by('-date')
+        amount_messages = messages.filter(date__gte=now, user=request.user, status=s2).count()
+        total_sum = messages.filter(date__gte=now, user=request.user, status=s2).aggregate(Sum('amount'))['amount__sum']
     context ={
         'messages': messages,
         'b': b,
@@ -252,20 +260,23 @@ def OutPutFilter(request, fpk):
     s2 = Status.objects.get(pk=2)
     e = Balance.objects.get(user=request.user)
     b = e.balance
-    total_sum = OutPut.objects.filter(user=request.user, status=s2).aggregate(Sum('amount'))['amount__sum']
     out = OutPut.objects.all()
     if fpk == 1:
         now = datetime.now() - timedelta(minutes=60 * 24)
         out = out.filter(date__gte=now, user=request.user).order_by('-date')
+        total_sum = out.filter(date__gte=now, user=request.user, status=s2).aggregate(Sum('amount'))['amount__sum']
     elif fpk == 2:
         now = datetime.now() - timedelta(minutes=60 * 24 * 7)
         out = out.filter(date__gte=now, user=request.user).order_by('-date')
+        total_sum = out.filter(date__gte=now, user=request.user, status=s2).aggregate(Sum('amount'))['amount__sum']
     elif fpk == 3:
         now = datetime.now() - timedelta(minutes=60 * 24 * 30)
         out = out.filter(date__gte=now, user=request.user).order_by('-date')
+        total_sum = out.filter(date__gte=now, user=request.user, status=s2).aggregate(Sum('amount'))['amount__sum']
     elif fpk == 4:
         now = datetime.now() - timedelta(minutes=60 * 24 * 365)
         out = out.filter(user=request.user, date__gte=now).order_by('-date')
+        total_sum = out.filter(date__gte=now, user=request.user, status=s2).aggregate(Sum('amount'))['amount__sum']
     my_form = OutPutForm(request.POST or None)
     if my_form.is_valid():
         if request.method == "POST":

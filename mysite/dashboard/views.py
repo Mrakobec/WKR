@@ -313,6 +313,7 @@ def OutPutFilter(request, fpk):
                             k.output = o1
                             k.balance = b2
                             k.save()
+                            
                         instance.save()
 
 
